@@ -1,0 +1,27 @@
+<svg width="1200" height="1500" viewBox="0 0 1200 1500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="1500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101215" />
+      <stop offset="1" stop-color="#24292f" />
+    </linearGradient>
+    <linearGradient id="glow" x1="600" y1="310" x2="600" y2="1300" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B55400" stop-opacity="0.55" />
+      <stop offset="1" stop-color="#B55400" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1500" rx="72" fill="url(#bg)"/>
+  <circle cx="600" cy="560" r="260" fill="#D6D6D6"/>
+  <path d="M450 1080C450 945 514 860 600 860C686 860 750 945 750 1080V1186H450V1080Z" fill="#C4C4C4"/>
+  <path d="M495 630C495 552 547 492 600 492C653 492 705 552 705 630C705 708 653 768 600 768C547 768 495 708 495 630Z" fill="#F4F4F4"/>
+  <path d="M430 514C474 408 532 352 600 352C668 352 726 408 770 514C752 485 708 470 600 470C492 470 448 485 430 514Z" fill="#1A1D21"/>
+  <path d="M428 520C390 612 392 779 432 918C470 822 490 725 495 632C495 552 522 499 547 470C500 474 456 490 428 520Z" fill="#111317"/>
+  <path d="M772 520C810 612 808 779 768 918C730 822 710 725 705 632C705 552 678 499 653 470C700 474 744 490 772 520Z" fill="#111317"/>
+  <path d="M520 646C520 619 539 598 562 598C585 598 604 619 604 646C604 673 585 694 562 694C539 694 520 673 520 646Z" fill="#181818"/>
+  <path d="M596 646C596 619 615 598 638 598C661 598 680 619 680 646C680 673 661 694 638 694C615 694 596 673 596 646Z" fill="#181818"/>
+  <path d="M563 748C577 733 623 733 637 748" stroke="#181818" stroke-width="16" stroke-linecap="round"/>
+  <path d="M565 820C599 842 633 842 667 820" stroke="#191919" stroke-width="18" stroke-linecap="round"/>
+  <path d="M470 1150H730" stroke="#A9A9A9" stroke-width="18" stroke-linecap="round"/>
+  <path d="M430 1030C470 962 510 925 600 925C690 925 730 962 770 1030" stroke="#BEBEBE" stroke-width="34" stroke-linecap="round"/>
+  <rect x="76" y="76" width="1048" height="1348" rx="60" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>
+  <rect width="1200" height="1500" rx="72" fill="url(#glow)"/>
+</svg>

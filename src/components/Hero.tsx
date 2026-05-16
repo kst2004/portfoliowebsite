@@ -1,0 +1,93 @@
+'use client';
+
+import Image from 'next/image';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { rotatingTaglines } from '../data/content';
+import Reveal from './Reveal';
+
+export default function Hero() {
+  const [taglineIndex, setTaglineIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTaglineIndex((current) => (current + 1) % rotatingTaglines.length);
+    }, 3800);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <section id="top" className="section-shell relative overflow-hidden pt-32 sm:pt-36">
+      <div className="absolute inset-0 bg-cinematic-vignette opacity-95" />
+      <div className="page-shell relative z-10 grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+        <Reveal className="space-y-9" y={34}>
+          <div className="space-y-5">
+            <p className="kicker">Creative Portfolio</p>
+            <h1 className="font-heading text-[clamp(2.8rem,6.4vw,6.6rem)] font-semibold uppercase leading-[0.92] tracking-[0.08em] text-accentSoft">
+              SAITEJA KOLAN
+            </h1>
+            <h2 className="font-heading text-[clamp(1.25rem,2.4vw,2rem)] font-medium tracking-wide text-accentGold">
+              Creative Designer & 3D Visualizer
+            </h2>
+
+            <div className="h-9 overflow-hidden text-sm uppercase tracking-[0.19em] text-accentSoft/70 sm:text-base">
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={rotatingTaglines[taglineIndex]}
+                  initial={{ opacity: 0, y: 18, filter: 'blur(6px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: -18, filter: 'blur(6px)' }}
+                  transition={{ duration: 0.8, ease: [0.2, 1, 0.2, 1] }}
+                >
+                  {rotatingTaglines[taglineIndex]}
+                </motion.p>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          <p className="max-w-xl text-lg leading-8 text-accentSoft/76">
+            Self-taught multidisciplinary designer focused on branding, web experiences, and cinematic visual storytelling.
+          </p>
+
+          <div className="flex flex-wrap gap-4">
+            <a href="#works" className="glass-button">
+              View Works
+            </a>
+            <a href="#contact" className="glass-button border-accentGold/45 bg-accentGold/[0.08]">
+              Contact Me
+            </a>
+          </div>
+        </Reveal>
+
+        <Reveal className="relative" delay={0.18}>
+          <div className="absolute -inset-8 rounded-[36px] bg-accentGold/[0.16] blur-3xl" />
+          <motion.div
+            className="glass-panel relative overflow-hidden p-3"
+            initial={{ scale: 0.97, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 1.1, ease: [0.2, 1, 0.2, 1] }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40" />
+            <motion.div
+              className="relative"
+              initial={{ scale: 1.02 }}
+              animate={{ scale: 1.07 }}
+              transition={{ duration: 10, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
+            >
+              <Image
+                src="/portrait.svg"
+                alt="Cinematic black and white portrait"
+                width={900}
+                height={1200}
+                priority
+                className="h-[560px] w-full rounded-[24px] object-cover grayscale"
+              />
+            </motion.div>
+          </motion.div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
