@@ -73,7 +73,7 @@ export default function Hero() {
             <motion.div
               className="relative"
               initial={{ scale: 1.02 }}
-              animate={{ scale: 1.07 }}
+              animate={{ scale: 1.03 }}
               transition={{ duration: 10, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
             >
               <Image
@@ -82,7 +82,7 @@ export default function Hero() {
                 width={900}
                 height={1200}
                 priority
-                className="h-[560px] w-full rounded-[24px] object-cover grayscale"
+                className="h-[460px] w-full rounded-[24px] object-cover object-[center_18%] grayscale sm:h-[560px]"
               />
             </motion.div>
           </motion.div>

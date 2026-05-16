@@ -39,7 +39,7 @@ export const works = [
     description:
       'Developed branding materials, vouchers, and visual assets for a local food business.',
     tools: ['Illustrator', 'Photoshop'],
-    image: '/works/Nashta-tiffins-logo.jpg',
+    image: '/works/nashta-tiffins-logo.png',
   },
   {
     slug: 'fantasy-character-renders',
@@ -59,7 +59,7 @@ export const works = [
     description:
       'Corporate identity and branding system designed for a professional infrastructure company.',
     tools: ['Illustrator', 'Photoshop'],
-    image: '/works/ppr-infra.svg',
+    image: '/works/ppr-logo.jpg',
   },
 ];
 
@@ -126,7 +126,7 @@ export const projectCaseStudies = [
     category: 'Branding + Print Design',
     year: '2023',
     tools: ['Illustrator', 'Photoshop'],
-    heroImage: '/works/Nashta-tiffins-logo.jpg',
+    heroImage: '/works/nashta-tiffins-logo.png',
     overview:
       'Nashta Tiffins needed a friendly, recognizable identity that could work across packaging, print, and local marketing touchpoints.',
     creativeDirection:
@@ -138,7 +138,7 @@ export const projectCaseStudies = [
     ],
     visualIdentity:
       'The identity balances utility and personality, with a mark and supporting graphics that work well at small sizes and on printed materials.',
-    gallery: ['/works/nashta-tiffins.svg', '/gallery/logos.svg', '/gallery/brand-marks.svg'],
+    gallery: ['/works/nashta-tiffins-logo.png', '/gallery/logos.svg', '/gallery/brand-marks.svg'],
     process: [
       { title: 'Sketches', description: 'Explored compact logo ideas and package-friendly compositions.' },
       { title: 'Moodboards', description: 'Collected food branding and local market references to shape the tone.' },
@@ -182,7 +182,7 @@ export const projectCaseStudies = [
     category: 'Corporate Branding',
     year: '2023',
     tools: ['Illustrator', 'Photoshop'],
-    heroImage: '/works/ppr-infra.svg',
+    heroImage: '/works/ppr-logo.jpg',
     overview:
       'PPR Infra was designed as a corporate identity system that communicates trust, structure, and a measured professional presence.',
     creativeDirection:
@@ -194,7 +194,7 @@ export const projectCaseStudies = [
     ],
     visualIdentity:
       'The identity system emphasizes geometry, disciplined alignment, and a restrained palette that supports a serious tone.',
-    gallery: ['/works/ppr-infra.svg', '/gallery/brand-marks.svg', '/gallery/logos.svg'],
+    gallery: ['/works/ppr-logo.jpg', '/gallery/brand-marks.svg', '/gallery/logos.svg'],
     process: [
       { title: 'Sketches', description: 'Developed logo directions around structure, balance, and clarity.' },
       { title: 'Moodboards', description: 'Collected references from architecture, infrastructure, and corporate brands.' },
