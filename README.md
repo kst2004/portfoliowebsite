@@ -33,6 +33,20 @@ npm run build
 npm run start
 ```
 
+## Deploy On Vercel
+
+1. Push this repository to GitHub.
+2. In Vercel, click Add New -> Project and import this repository.
+3. Keep the detected settings:
+	- Framework Preset: Next.js
+	- Install Command: npm ci
+	- Build Command: npm run build
+4. Click Deploy.
+
+### Runtime Version
+
+- Node.js is pinned in `package.json` via `engines.node` to `20.x` for consistent local and Vercel builds.
+
 ## Notes
 
 - Assets in `public/works` and `public/gallery` are placeholder SVGs and can be swapped with real artwork.
