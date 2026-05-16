@@ -77,7 +77,7 @@ export default function Hero() {
               transition={{ duration: 10, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
             >
               <Image
-                src="/portrait.svg"
+                src="/IMG_0010.jpg"
                 alt="Cinematic black and white portrait"
                 width={900}
                 height={1200}
