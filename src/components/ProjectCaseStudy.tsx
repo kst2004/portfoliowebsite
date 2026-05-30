@@ -2,8 +2,12 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Reveal from './Reveal';
+import Lightbox from './Lightbox';
+
+type GalleryItem = string | { src: string; playbackRate?: number };
 
 type CaseStudyProject = {
   slug: string;
@@ -16,7 +20,7 @@ type CaseStudyProject = {
   creativeDirection: string;
   designGoals: string[];
   visualIdentity: string;
-  gallery: string[];
+  gallery: GalleryItem[];
   process: { title: string; description: string }[];
   outcome: string;
 };
@@ -25,7 +29,28 @@ type ProjectCaseStudyProps = {
   project: CaseStudyProject;
 };
 
+function VideoCard({ src, playbackRate = 1 }: { src: string; playbackRate?: number }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const handleCanPlay = () => {
+    if (ref.current) ref.current.playbackRate = playbackRate;
+  };
+  return (
+    <video
+      ref={ref}
+      src={src}
+      autoPlay
+      loop
+      muted
+      playsInline
+      onCanPlay={handleCanPlay}
+      className="h-full w-full object-cover"
+    />
+  );
+}
+
 export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
   return (
     <div className="relative min-h-screen bg-bgPrimary text-accentSoft">
       <main className="overflow-x-clip">
@@ -34,17 +59,10 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
             <div className="relative overflow-hidden rounded-[32px] border border-white/10 shadow-soft">
               <div className="relative h-[68vh] min-h-[560px] w-full">
                 <motion.div className="absolute inset-0" initial={{ scale: 1.04 }} animate={{ scale: 1 }} transition={{ duration: 1.4, ease: 'easeOut' }}>
-                  <Image
-                    src={project.heroImage}
-                    alt={project.title}
-                    fill
-                    priority
-                    className="object-cover"
-                  />
+                  <Image src={project.heroImage} alt={project.title} fill priority className="object-cover" />
                 </motion.div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/15" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(181,84,0,0.22),transparent_35%),radial-gradient(circle_at_80%_75%,rgba(255,255,255,0.08),transparent_30%)]" />
-
                 <div className="relative z-10 flex h-full items-end">
                   <div className="w-full p-6 sm:p-10 lg:p-14">
                     <Reveal>
@@ -81,7 +99,6 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
               <p className="kicker">Project Overview</p>
               <h2 className="section-heading">A cinematic case study built around story, form, and atmosphere.</h2>
             </Reveal>
-
             <div className="grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
               <Reveal>
                 <div className="glass-panel h-full space-y-6 p-7 sm:p-9">
@@ -95,7 +112,6 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                   </div>
                 </div>
               </Reveal>
-
               <Reveal delay={0.05}>
                 <div className="glass-panel h-full space-y-6 p-7 sm:p-9">
                   <div className="space-y-3">
@@ -127,25 +143,44 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
             </Reveal>
 
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {project.gallery.map((image, index) => (
-                <Reveal key={image} delay={index * 0.05}>
-                  <motion.div
-                    whileHover={{ y: -5 }}
-                    transition={{ duration: 0.6, ease: [0.2, 1, 0.2, 1] }}
-                    className="group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] shadow-soft"
-                  >
-                    <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.9 }} className="relative aspect-[4/5]">
-                      <Image src={image} alt={`${project.title} gallery ${index + 1}`} fill className="object-cover" />
-                    </motion.div>
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10 opacity-80 transition duration-700 group-hover:opacity-100" />
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5 opacity-0 transition duration-700 group-hover:opacity-100">
-                      <div className="glass-panel border-white/10 bg-black/30 px-4 py-3 text-xs uppercase tracking-[0.26em] text-accentSoft/80 backdrop-blur-xl">
-                        Cinematic detail view
+              {project.gallery.map((item, index) => {
+                const isVideo = typeof item !== 'string';
+                const key = typeof item === 'string' ? item : item.src;
+                return (
+                  <Reveal key={key} delay={index * 0.05}>
+                    <motion.div
+                      whileHover={{ y: -5 }}
+                      transition={{ duration: 0.6, ease: [0.2, 1, 0.2, 1] }}
+                      className="group relative cursor-pointer overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] shadow-soft"
+                      onClick={() => setLightboxIndex(index)}
+                    >
+                      {isVideo ? (
+                        <div className="relative aspect-[4/5] overflow-hidden">
+                          <VideoCard src={item.src} playbackRate={item.playbackRate} />
+                        </div>
+                      ) : (
+                        <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.9 }} className="relative aspect-[4/5]">
+                          <Image src={item} alt={`${project.title} gallery ${index + 1}`} fill className="object-cover" />
+                        </motion.div>
+                      )}
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10 opacity-80 transition duration-700 group-hover:opacity-100" />
+
+                      {/* Expand hint */}
+                      <div className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-black/30 opacity-0 backdrop-blur-md transition duration-500 group-hover:opacity-100">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                          <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                        </svg>
                       </div>
-                    </div>
-                  </motion.div>
-                </Reveal>
-              ))}
+
+                      <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5 opacity-0 transition duration-700 group-hover:opacity-100">
+                        <div className="glass-panel border-white/10 bg-black/30 px-4 py-3 text-xs uppercase tracking-[0.26em] text-accentSoft/80 backdrop-blur-xl">
+                          {isVideo ? 'Motion render' : 'Cinematic detail view'}
+                        </div>
+                      </div>
+                    </motion.div>
+                  </Reveal>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -156,7 +191,6 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
               <p className="kicker">Process</p>
               <h2 className="section-heading">Sketches, moodboards, iterations, and workflow decisions.</h2>
             </Reveal>
-
             <div className="grid gap-5 lg:grid-cols-4">
               {project.process.map((step, index) => (
                 <Reveal key={step.title} delay={index * 0.06}>
@@ -185,7 +219,6 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                 </div>
               </div>
             </Reveal>
-
             <Reveal delay={0.05}>
               <div className="glass-panel h-full p-7 sm:p-9">
                 <p className="kicker">Final Outcome</p>
@@ -195,6 +228,17 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
           </div>
         </section>
       </main>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <Lightbox
+            items={project.gallery}
+            startIndex={lightboxIndex}
+            onClose={() => setLightboxIndex(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
