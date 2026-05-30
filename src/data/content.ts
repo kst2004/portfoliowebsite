@@ -241,7 +241,7 @@ export const projectCaseStudies = [
     slug: 'ppr-infra',
     title: 'PPR Infra',
     category: 'Corporate Branding',
-    year: '2025',
+    year: '2026',
     tools: ['Illustrator', 'Photoshop'],
     heroImage: '/works/PPRInfra/ppr-logo.jpg',
     overview:
@@ -322,7 +322,7 @@ export const processSteps = [
 
 export const contactItems = [
   { label: 'Email', value: 'kolansaiteja15@gmail.com', href: 'mailto:kolansaiteja15@gmail.com' },
-  { label: 'LinkedIn', value: 'linkedin.com/in/kolansaiteja', href: 'https://www.linkedin.com/in/kolansaiteja/' },
+  { label: 'LinkedIn', value: 'linkedin.com/in/kolansaiteja', href: 'https://www.linkedin.com/in/kolansaiteja' },
   { label: 'Instagram', value: '@saitejakolan', href: 'https://instagram.com/saitejakolan' },
   { label: 'Phone', value: '+91 9032100359', href: 'tel:+919032100359' },
 ];
