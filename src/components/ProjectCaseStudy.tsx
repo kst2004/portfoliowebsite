@@ -62,19 +62,24 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         <section className="relative isolate pt-28 sm:pt-32 lg:pt-36">
           <div className="page-shell">
             <div className="relative overflow-hidden rounded-[32px] border border-white/10 shadow-soft">
-              <div className="relative h-[68vh] min-h-[560px] w-full">
+              <div className="relative min-h-[640px] w-full lg:h-[68vh] lg:min-h-[560px]">
                 <motion.div className="absolute inset-0" initial={{ scale: 1.04 }} animate={{ scale: 1 }} transition={{ duration: 1.4, ease: 'easeOut' }}>
                   <Image src={project.heroImage} alt={project.title} fill priority className="object-cover" />
                 </motion.div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/15" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(181,84,0,0.22),transparent_35%),radial-gradient(circle_at_80%_75%,rgba(255,255,255,0.08),transparent_30%)]" />
-                <div className="relative z-10 flex h-full items-end">
+
+                {/* Back to home — pinned to top-left of the card */}
+                <div className="absolute left-0 top-0 z-20 p-6 sm:p-10 lg:p-14">
+                  <Link href="/" className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-accentSoft/70 transition hover:text-accentGold">
+                    ← Back to home
+                  </Link>
+                </div>
+
+                <div className="relative z-10 flex min-h-[640px] items-end lg:h-full lg:min-h-0">
                   <div className="w-full p-6 sm:p-10 lg:p-14">
                     <Reveal>
                       <div className="max-w-4xl space-y-5">
-                        <Link href="/" className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-accentSoft/70 transition hover:text-accentGold">
-                          ← Back to home
-                        </Link>
                         <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.26em] text-accentSoft/75">
                           <span className="rounded-full border border-white/15 bg-black/25 px-3 py-1 backdrop-blur-md">{project.category}</span>
                           <span className="rounded-full border border-white/15 bg-black/25 px-3 py-1 backdrop-blur-md">{project.year}</span>

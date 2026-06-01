@@ -32,7 +32,7 @@ export default function Hero() {
               Creative Designer & 3D Visualizer
             </h2>
 
-            <div className="h-9 overflow-hidden text-sm uppercase tracking-[0.19em] text-accentSoft/70 sm:text-base">
+            <div className="min-h-9 overflow-hidden text-sm uppercase tracking-[0.19em] text-accentSoft/70 sm:text-base">
               <AnimatePresence mode="wait">
                 <motion.p
                   key={rotatingTaglines[taglineIndex]}
@@ -48,7 +48,7 @@ export default function Hero() {
           </div>
 
           <p className="max-w-xl text-lg leading-8 text-accentSoft/75">
-            Self-taught multidisciplinary designer focused on branding, web experiences, and cinematic visual storytelling.
+            Freelance Creative Designer and 3D Visualizer with real client experience across hospitality, construction, food & beverage, sports, architecture, and media.
           </p>
 
           <div className="flex flex-wrap gap-4">
