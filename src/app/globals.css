@@ -108,8 +108,6 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee-left,
-  .animate-marquee-right {
-    animation: none;
-  }
+  .animate-marquee-left  { animation-duration: 120s; }
+  .animate-marquee-right { animation-duration: 140s; }
 }
