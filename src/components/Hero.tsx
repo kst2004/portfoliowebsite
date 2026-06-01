@@ -18,9 +18,9 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="top" className="section-shell relative overflow-hidden pt-32 sm:pt-36">
+    <section id="top" className="section-shell relative overflow-hidden pt-32 sm:pt-36 !pb-10">
       <div className="absolute inset-0 bg-cinematic-vignette opacity-95" />
-      <div className="page-shell relative z-10 grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+      <div className="page-shell relative z-10 grid items-start gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
 
         <Reveal className="space-y-9" y={34}>
           <div className="space-y-5">
@@ -97,7 +97,7 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="page-shell relative z-10 mt-16 flex justify-center lg:justify-start">
+      <div className="page-shell relative z-10 mt-8 flex justify-center lg:justify-start">
         <motion.a
           href="#works"
           className="flex flex-col items-center gap-2 text-accentSoft/40 transition hover:text-accentSoft/70"
