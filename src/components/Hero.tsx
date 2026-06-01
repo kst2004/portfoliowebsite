@@ -20,11 +20,11 @@ export default function Hero() {
   return (
     <section id="top" className="section-shell relative overflow-hidden pt-32 sm:pt-36 !pb-10">
       <div className="absolute inset-0 bg-cinematic-vignette opacity-95" />
-      <div className="page-shell relative z-10 grid items-start gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+      <div className="page-shell relative z-10 grid items-start gap-8 sm:gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
 
-        <Reveal className="space-y-9" y={34}>
+        <Reveal className="space-y-6 sm:space-y-9" y={34}>
           <div className="space-y-5">
-            <p className="kicker">Creative Portfolio</p>
+            <p className="kicker">Freelance Designer</p>
             <h1 className="font-heading text-[clamp(2.8rem,6.4vw,6.6rem)] font-semibold uppercase leading-[0.92] tracking-[0.08em] text-accentSoft">
               SAITEJA KOLAN
             </h1>
@@ -47,7 +47,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <p className="max-w-xl text-lg leading-8 text-accentSoft/75">
+          <p className="max-w-xl text-base leading-7 text-accentSoft/75 sm:text-lg sm:leading-8">
             Freelance Creative Designer and 3D Visualizer with real client experience across hospitality, construction, food & beverage, sports, architecture, and media.
           </p>
 
@@ -84,12 +84,12 @@ export default function Hero() {
             >
               <Image
                 src="/IMG_0010.jpg"
-                alt="Cinematic black and white portrait"
+                alt="Portrait of Saiteja Kolan"
                 width={900}
                 height={1200}
                 priority
                 sizes="(max-width: 1024px) 100vw, 45vw"
-                className="h-[460px] w-full rounded-[24px] object-cover object-[center_18%] grayscale sm:h-[560px] lg:h-[680px]"
+                className="h-[380px] w-full rounded-[24px] object-cover object-[center_18%] grayscale sm:h-[520px] lg:h-[680px]"
               />
             </motion.div>
           </motion.div>

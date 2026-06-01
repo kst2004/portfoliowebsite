@@ -1,5 +1,3 @@
-'use client';
-
 import Reveal from './Reveal';
 import { contactItems } from '../data/content';
 
@@ -15,6 +13,7 @@ export default function Contact() {
               <a
                 key={item.label}
                 href={item.href}
+                {...(item.href.startsWith('https://') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 className="glass-panel group px-5 py-5 text-left transition duration-700 hover:border-accentGold/35 hover:bg-white/[0.1]"
               >
                 <p className="text-xs uppercase tracking-[0.24em] text-accentSoft/55">{item.label}</p>

@@ -8,10 +8,10 @@ export default function Footer() {
         </div>
 
         <div className="flex items-center gap-6 text-xs uppercase tracking-[0.22em] text-accentSoft/50">
-          <a href="https://www.linkedin.com/in/kolansaiteja/" className="transition duration-300 hover:text-accentGold">
+          <a href="https://www.linkedin.com/in/kolansaiteja" target="_blank" rel="noopener noreferrer" className="transition duration-300 hover:text-accentGold">
             LinkedIn
           </a>
-          <a href="https://instagram.com/saitejakolan" className="transition duration-300 hover:text-accentGold">
+          <a href="https://instagram.com/saitejakolan" target="_blank" rel="noopener noreferrer" className="transition duration-300 hover:text-accentGold">
             Instagram
           </a>
           <a href="mailto:kolansaiteja15@gmail.com" className="transition duration-300 hover:text-accentGold">

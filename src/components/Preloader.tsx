@@ -53,7 +53,7 @@ export default function Preloader() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.7 }}
           >
-            Creative Portfolio
+            Freelance Designer & 3D Visualizer
           </motion.p>
         </motion.div>
       )}

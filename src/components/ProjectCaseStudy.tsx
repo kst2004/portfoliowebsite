@@ -47,6 +47,7 @@ function VideoCard({ src, playbackRate = 1 }: { src: string; playbackRate?: numb
       loop
       muted
       playsInline
+      preload="metadata"
       onCanPlay={handleCanPlay}
       className="h-full w-full object-cover"
     />
@@ -58,11 +59,11 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
 
   return (
     <div className="relative min-h-screen bg-bgPrimary text-accentSoft">
-      <main className="overflow-x-clip">
+      <main id="main-content" className="overflow-x-clip">
         <section className="relative isolate pt-28 sm:pt-32 lg:pt-36">
           <div className="page-shell">
             <div className="relative overflow-hidden rounded-[32px] border border-white/10 shadow-soft">
-              <div className="relative min-h-[640px] w-full lg:h-[68vh] lg:min-h-[560px]">
+              <div className="relative min-h-[520px] w-full sm:min-h-[600px] lg:h-[68vh] lg:min-h-[560px]">
                 <motion.div className="absolute inset-0" initial={{ scale: 1.04 }} animate={{ scale: 1 }} transition={{ duration: 1.4, ease: 'easeOut' }}>
                   <Image src={project.heroImage} alt={project.title} fill priority className="object-cover" />
                 </motion.div>
@@ -76,7 +77,7 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                   </Link>
                 </div>
 
-                <div className="relative z-10 flex min-h-[640px] items-end lg:h-full lg:min-h-0">
+                <div className="relative z-10 flex min-h-[520px] items-end sm:min-h-[600px] lg:h-full lg:min-h-0">
                   <div className="w-full p-5 sm:p-10 lg:p-14">
                     <Reveal>
                       <div className="max-w-4xl space-y-3 sm:space-y-5">
@@ -141,7 +142,7 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
           <div className="page-shell space-y-10">
             <Reveal>
               <p className="kicker">Project Overview</p>
-              <h2 className="section-heading">A cinematic case study built around story, form, and atmosphere.</h2>
+              <h2 className="section-heading">Project background, objectives, and design decisions.</h2>
             </Reveal>
             <div className="grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
               <Reveal>
@@ -183,7 +184,7 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
           <div className="page-shell space-y-10">
             <Reveal>
               <p className="kicker">Gallery</p>
-              <h2 className="section-heading">Full-frame imagery arranged like an editorial spread.</h2>
+              <h2 className="section-heading">Deliverables, renders, and project output.</h2>
             </Reveal>
 
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -218,7 +219,7 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
 
                       <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5 opacity-0 transition duration-700 group-hover:opacity-100">
                         <div className="glass-panel border-white/10 bg-black/30 px-4 py-3 text-xs uppercase tracking-[0.26em] text-accentSoft/80 backdrop-blur-xl">
-                          {isVideo ? 'Motion render' : 'Cinematic detail view'}
+                          {isVideo ? 'Motion render' : 'Click to expand'}
                         </div>
                       </div>
                     </motion.div>
@@ -293,6 +294,7 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
             items={project.gallery}
             startIndex={lightboxIndex}
             onClose={() => setLightboxIndex(null)}
+            projectTitle={project.title}
           />
         )}
       </AnimatePresence>

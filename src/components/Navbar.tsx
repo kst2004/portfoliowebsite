@@ -1,12 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { navItems } from '../data/content';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -18,6 +20,37 @@ export default function Navbar() {
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
+  // Focus trap for mobile menu
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const menu = menuRef.current;
+    if (!menu) return;
+
+    const focusables = Array.from(
+      menu.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')
+    );
+    focusables[0]?.focus();
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key !== 'Tab') return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      triggerRef.current?.focus();
+    };
   }, [menuOpen]);
 
   const close = () => setMenuOpen(false);
@@ -50,10 +83,12 @@ export default function Navbar() {
                 Contact
               </a>
 
-              {/* Hamburger — absolute-positioned spans so transforms are exact */}
               <button
+                ref={triggerRef}
                 onClick={() => setMenuOpen((v) => !v)}
                 aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={menuOpen}
+                aria-controls="mobile-menu"
                 className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/[0.07] backdrop-blur-md transition hover:border-accentGold/40 md:hidden"
               >
                 <span
@@ -77,11 +112,16 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile full-screen overlay — no nested framer-motion on items */}
+      {/* Mobile full-screen overlay */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            id="mobile-menu"
+            ref={menuRef}
             key="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
@@ -95,7 +135,7 @@ export default function Navbar() {
                   key={item.href}
                   href={item.href}
                   onClick={close}
-                  className="w-full border-b border-white/[0.08] py-6 text-center font-heading text-[1.6rem] font-medium tracking-wide text-white/85 transition-colors duration-200 active:text-accentGold"
+                  className="w-full border-b border-white/[0.08] py-6 text-center font-heading text-[1.6rem] font-medium tracking-wide text-accentSoft/85 transition-colors duration-200 active:text-accentGold"
                 >
                   {item.label}
                 </a>
@@ -109,11 +149,11 @@ export default function Navbar() {
               </a>
             </div>
 
-            <div className="flex items-center justify-center gap-8 py-8 text-xs uppercase tracking-[0.22em] text-white/40">
-              <a href="https://www.linkedin.com/in/kolansaiteja/" onClick={close} className="transition hover:text-accentGold">
+            <div className="flex items-center justify-center gap-8 py-8 text-xs uppercase tracking-[0.22em] text-accentSoft/40">
+              <a href="https://www.linkedin.com/in/kolansaiteja" onClick={close} target="_blank" rel="noopener noreferrer" className="transition hover:text-accentGold">
                 LinkedIn
               </a>
-              <a href="https://instagram.com/saitejakolan" onClick={close} className="transition hover:text-accentGold">
+              <a href="https://instagram.com/saitejakolan" onClick={close} target="_blank" rel="noopener noreferrer" className="transition hover:text-accentGold">
                 Instagram
               </a>
             </div>

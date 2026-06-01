@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <div className="relative min-h-screen overflow-x-clip bg-bgPrimary text-accentSoft">
       <Navbar />
-      <main>
+      <main id="main-content">
         <Hero />
         <SelectedWorks />
         <About />

@@ -19,9 +19,29 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
     return { title: 'Project not found' };
   }
 
+  const title = `${project.title} — ${project.category}`;
+  const description = project.overview.slice(0, 155);
+
   return {
-    title: `${project.title} | Saiteja Kolan`,
-    description: project.overview,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [
+        {
+          url: project.heroImage,
+          alt: `${project.title} — ${project.category}`,
+        },
+      ],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [project.heroImage],
+    },
   };
 }
 

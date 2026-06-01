@@ -1,5 +1,3 @@
-'use client';
-
 import { capabilityGroups } from '../data/content';
 import Reveal from './Reveal';
 
@@ -17,10 +15,10 @@ export default function Capabilities() {
             <Reveal key={group.title} delay={index * 0.08}>
               <article className="glass-panel h-full p-6 transition duration-700 hover:border-accentGold/35 hover:shadow-glow">
                 <h3 className="font-heading text-2xl text-accentGold">{group.title}</h3>
-                <ul className="mt-5 space-y-3">
+                <ul className="mt-5 space-y-3" aria-label={`${group.title} services`}>
                   {group.items.map((item) => (
                     <li key={item} className="flex items-center gap-3 text-accentSoft/80">
-                      <span className="h-2 w-2 rounded-full bg-accentGold/65" />
+                      <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accentGold/65" />
                       <span>{item}</span>
                     </li>
                   ))}

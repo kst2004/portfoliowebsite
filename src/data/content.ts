@@ -58,7 +58,7 @@ export const works = [
     year: '2025',
     description:
       'Photorealistic interior renders produced for a residential design project in Manikonda, Hyderabad. Renders were used to present the proposed design to the end client for approval prior to construction and fit-out.',
-    tools: ['Blender', 'Photoshop'],
+    tools: ['D5 Render', 'SketchUp', 'Photoshop'],
     image: '/works/Interiorvisualization/004.png',
   },
   {

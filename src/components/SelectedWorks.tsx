@@ -37,10 +37,10 @@ function WorkCard({ work, index }: { work: typeof works[0]; index: number }) {
 
         {/* Top bar */}
         <div className="absolute inset-x-0 top-0 flex items-center justify-between p-5">
-          <span className="font-heading text-[11px] tracking-[0.34em] text-white/25 transition-colors duration-500 group-hover:text-accentGold/60">
+          <span className="font-heading text-[11px] tracking-[0.34em] text-accentSoft/25 transition-colors duration-500 group-hover:text-accentGold/60">
             {String(index + 1).padStart(2, '0')}
           </span>
-          <span className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[9px] uppercase tracking-[0.3em] text-white/50 backdrop-blur-sm transition-all duration-500 group-hover:border-accentGold/35 group-hover:text-accentGold">
+          <span className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[9px] uppercase tracking-[0.3em] text-accentSoft/50 backdrop-blur-sm transition-all duration-500 group-hover:border-accentGold/35 group-hover:text-accentGold">
             Case Study
           </span>
         </div>
@@ -48,20 +48,20 @@ function WorkCard({ work, index }: { work: typeof works[0]; index: number }) {
         {/* Default state — title at bottom, fades on hover */}
         <div className="absolute inset-x-0 bottom-0 p-6 transition-all duration-500 ease-out group-hover:translate-y-3 group-hover:opacity-0">
           <p className="mb-2 text-[10px] uppercase tracking-[0.28em] text-accentGold/80">{work.category}</p>
-          <h3 className="font-heading text-[1.55rem] font-medium leading-tight text-white">{work.title}</h3>
+          <h3 className="font-heading text-[1.55rem] font-medium leading-tight text-accentSoft">{work.title}</h3>
         </div>
 
         {/* Hover overlay — fades in with full info */}
         <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/60 to-black/20 p-6 opacity-0 backdrop-blur-[2px] transition-opacity duration-500 group-hover:opacity-100">
           <p className="mb-1.5 text-[10px] uppercase tracking-[0.28em] text-accentGold/90">{work.category}</p>
-          <h3 className="mb-3 font-heading text-xl font-medium leading-tight text-white">{work.title}</h3>
-          <p className="mb-4 line-clamp-2 text-[13px] leading-relaxed text-white/60">{work.description}</p>
+          <h3 className="mb-3 font-heading text-xl font-medium leading-tight text-accentSoft">{work.title}</h3>
+          <p className="mb-4 line-clamp-2 text-[13px] leading-relaxed text-accentSoft/60">{work.description}</p>
 
           <div className="mb-5 flex flex-wrap gap-1.5">
             {work.tools.map((tool) => (
               <span
                 key={tool}
-                className="rounded-full border border-white/15 bg-white/[0.07] px-2.5 py-0.5 text-[10px] tracking-wide text-white/60"
+                className="rounded-full border border-white/15 bg-white/[0.07] px-2.5 py-0.5 text-[10px] tracking-wide text-accentSoft/60"
               >
                 {tool}
               </span>
@@ -151,10 +151,10 @@ function HorizontalScroll() {
 
           {/* Active index counter */}
           <div className="shrink-0">
-            <span className="font-heading text-[2rem] font-semibold tabular-nums leading-none text-white/70 sm:text-[2.4rem]">
+            <span className="font-heading text-[2rem] font-semibold tabular-nums leading-none text-accentSoft/70 sm:text-[2.4rem]">
               {String(activeIndex + 1).padStart(2, '0')}
             </span>
-            <span className="ml-1.5 text-xs text-white/20">
+            <span className="ml-1.5 text-xs text-accentSoft/20">
               / {String(works.length).padStart(2, '0')}
             </span>
           </div>
@@ -170,7 +170,7 @@ function HorizontalScroll() {
             />
           </div>
 
-          <span className="hidden shrink-0 text-[10px] uppercase tracking-[0.34em] text-white/18 sm:block">
+          <span className="hidden shrink-0 text-[10px] uppercase tracking-[0.34em] text-accentSoft/20 sm:block">
             scroll
           </span>
         </div>
@@ -210,7 +210,7 @@ export default function SelectedWorks() {
       <div className="page-shell pt-24 pb-10 sm:pt-28 lg:pt-32">
         <Reveal>
           <p className="kicker">Selected Works</p>
-          <h2 className="section-heading">Editorial projects shaped by storytelling and atmosphere.</h2>
+          <h2 className="section-heading">Brand identity, visualization, and 3D work for real clients.</h2>
         </Reveal>
       </div>
 

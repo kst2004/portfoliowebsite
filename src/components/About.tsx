@@ -1,5 +1,3 @@
-'use client';
-
 import Reveal from './Reveal';
 
 export default function About() {
@@ -10,12 +8,12 @@ export default function About() {
           <p className="kicker">About</p>
           <div className="space-y-7">
             <p className="font-heading text-[clamp(1.5rem,2.8vw,2.7rem)] leading-[1.35] text-accentSoft/95">
-              I&apos;m a self-taught creative designer and visual artist based in Hyderabad, focused on building immersive
-              digital experiences through branding, UI design, and cinematic visualization.
+              Freelance Creative Designer and 3D Visualizer based in Hyderabad, with completed client projects
+              across hospitality, construction, food and beverage, sports, architecture, and media.
             </p>
             <p className="max-w-4xl text-lg leading-9 text-accentSoft/72">
-              My work combines modern aesthetics, storytelling, and technical experimentation to create visually
-              engaging experiences across digital and print media.
+              I deliver brand identity, print design, 3D visualization, and architectural renders to production
+              standards — scoped clearly, executed consistently, and handed off ready for immediate use.
             </p>
           </div>
         </Reveal>
