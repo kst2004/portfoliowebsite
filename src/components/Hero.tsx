@@ -89,7 +89,7 @@ export default function Hero() {
                 height={1200}
                 priority
                 sizes="(max-width: 1024px) 100vw, 45vw"
-                className="h-[460px] w-full rounded-[24px] object-cover object-[center_18%] grayscale sm:h-[560px]"
+                className="h-[460px] w-full rounded-[24px] object-cover object-[center_18%] grayscale sm:h-[560px] lg:h-[680px]"
               />
             </motion.div>
           </motion.div>
