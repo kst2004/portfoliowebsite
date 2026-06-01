@@ -23,6 +23,11 @@ type CaseStudyProject = {
   gallery: GalleryItem[];
   process: { title: string; description: string }[];
   outcome: string;
+  industry?: string;
+  location?: string;
+  role?: string;
+  services?: string[];
+  deliverables?: string[];
 };
 
 type ProjectCaseStudyProps = {
@@ -84,6 +89,38 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                             </span>
                           ))}
                         </div>
+                        {(project.industry || project.location || project.role) && (
+                          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                            {project.industry && (
+                              <div className="space-y-1">
+                                <p className="text-[9px] uppercase tracking-[0.28em] text-accentSoft/35">Industry</p>
+                                <p className="text-xs text-accentSoft/75">{project.industry}</p>
+                              </div>
+                            )}
+                            {project.location && (
+                              <div className="space-y-1">
+                                <p className="text-[9px] uppercase tracking-[0.28em] text-accentSoft/35">Location</p>
+                                <p className="text-xs text-accentSoft/75">{project.location}</p>
+                              </div>
+                            )}
+                            {project.role && (
+                              <div className="space-y-1">
+                                <p className="text-[9px] uppercase tracking-[0.28em] text-accentSoft/35">Role</p>
+                                <p className="text-xs text-accentSoft/75">{project.role}</p>
+                              </div>
+                            )}
+                            {project.services && project.services.length > 0 && (
+                              <div className="space-y-1">
+                                <p className="text-[9px] uppercase tracking-[0.28em] text-accentSoft/35">Services</p>
+                                <div className="flex flex-col gap-0.5">
+                                  {project.services.map((s) => (
+                                    <p key={s} className="text-xs text-accentSoft/75">{s}</p>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
                     </Reveal>
                   </div>
@@ -103,11 +140,11 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
               <Reveal>
                 <div className="glass-panel h-full space-y-6 p-7 sm:p-9">
                   <div className="space-y-3">
-                    <p className="text-xs uppercase tracking-[0.28em] text-accentGold/85">Project Story</p>
+                    <p className="text-xs uppercase tracking-[0.28em] text-accentGold/85">Project Overview</p>
                     <p className="muted-copy">{project.overview}</p>
                   </div>
                   <div className="space-y-3">
-                    <p className="text-xs uppercase tracking-[0.28em] text-accentGold/85">Creative Direction</p>
+                    <p className="text-xs uppercase tracking-[0.28em] text-accentGold/85">Design Approach</p>
                     <p className="muted-copy">{project.creativeDirection}</p>
                   </div>
                 </div>
@@ -115,7 +152,7 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
               <Reveal delay={0.05}>
                 <div className="glass-panel h-full space-y-6 p-7 sm:p-9">
                   <div className="space-y-3">
-                    <p className="text-xs uppercase tracking-[0.28em] text-accentGold/85">Design Goals</p>
+                    <p className="text-xs uppercase tracking-[0.28em] text-accentGold/85">Objectives</p>
                     <ul className="space-y-3 text-sm leading-7 text-accentSoft/82">
                       {project.designGoals.map((goal) => (
                         <li key={goal} className="flex gap-3">
@@ -126,7 +163,7 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                     </ul>
                   </div>
                   <div className="space-y-3">
-                    <p className="text-xs uppercase tracking-[0.28em] text-accentGold/85">Visual Identity</p>
+                    <p className="text-xs uppercase tracking-[0.28em] text-accentGold/85">Challenge</p>
                     <p className="muted-copy">{project.visualIdentity}</p>
                   </div>
                 </div>
@@ -217,11 +254,24 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                     </span>
                   ))}
                 </div>
+                {project.deliverables && project.deliverables.length > 0 && (
+                  <div className="mt-6 space-y-3">
+                    <p className="text-xs uppercase tracking-[0.28em] text-accentGold/85">Deliverables</p>
+                    <ul className="space-y-1.5">
+                      {project.deliverables.map((d) => (
+                        <li key={d} className="flex items-start gap-2 text-sm text-accentSoft/75">
+                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accentGold/60" />
+                          {d}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </Reveal>
             <Reveal delay={0.05}>
               <div className="glass-panel h-full p-7 sm:p-9">
-                <p className="kicker">Final Outcome</p>
+                <p className="kicker">Outcome</p>
                 <p className="muted-copy text-base leading-8">{project.outcome}</p>
               </div>
             </Reveal>
