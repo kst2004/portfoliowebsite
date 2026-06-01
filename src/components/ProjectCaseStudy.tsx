@@ -69,57 +69,59 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/15" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(181,84,0,0.22),transparent_35%),radial-gradient(circle_at_80%_75%,rgba(255,255,255,0.08),transparent_30%)]" />
 
-                {/* Back to home — pinned to top-left of the card */}
-                <div className="absolute left-0 top-0 z-20 p-6 sm:p-10 lg:p-14">
-                  <Link href="/" className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-accentSoft/70 transition hover:text-accentGold">
+                {/* Back to home — pinned to top-left, goes to works section */}
+                <div className="absolute left-0 top-0 z-20 p-5 sm:p-10 lg:p-14">
+                  <Link href="/#works" className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-accentSoft/70 transition hover:text-accentGold">
                     ← Back to home
                   </Link>
                 </div>
 
                 <div className="relative z-10 flex min-h-[640px] items-end lg:h-full lg:min-h-0">
-                  <div className="w-full p-6 sm:p-10 lg:p-14">
+                  <div className="w-full p-5 sm:p-10 lg:p-14">
                     <Reveal>
-                      <div className="max-w-4xl space-y-5">
-                        <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.26em] text-accentSoft/75">
-                          <span className="rounded-full border border-white/15 bg-black/25 px-3 py-1 backdrop-blur-md">{project.category}</span>
-                          <span className="rounded-full border border-white/15 bg-black/25 px-3 py-1 backdrop-blur-md">{project.year}</span>
+                      <div className="max-w-4xl space-y-3 sm:space-y-5">
+                        {/* Category + year on same compact row */}
+                        <div className="flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-accentSoft/75">
+                          <span className="rounded-full border border-white/15 bg-black/25 px-2.5 py-1 backdrop-blur-md">{project.category}</span>
+                          <span className="rounded-full border border-white/15 bg-black/25 px-2.5 py-1 backdrop-blur-md">{project.year}</span>
                         </div>
-                        <h1 className="font-heading text-[clamp(3rem,7vw,6.5rem)] leading-[0.92] tracking-tight text-accentSoft">
+                        {/* Smaller title min on mobile so it doesn't dominate */}
+                        <h1 className="font-heading text-[clamp(2rem,7vw,6.5rem)] leading-[0.92] tracking-tight text-accentSoft">
                           {project.title}
                         </h1>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-1.5">
                           {project.tools.map((tool) => (
-                            <span key={tool} className="rounded-full border border-white/15 bg-white/[0.07] px-4 py-2 text-xs uppercase tracking-[0.26em] text-accentSoft/80 backdrop-blur-md">
+                            <span key={tool} className="rounded-full border border-white/15 bg-white/[0.07] px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-accentSoft/80 backdrop-blur-md">
                               {tool}
                             </span>
                           ))}
                         </div>
                         {(project.industry || project.location || project.role) && (
-                          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                          <div className="grid grid-cols-2 gap-x-4 gap-y-3 pt-1 sm:grid-cols-4">
                             {project.industry && (
-                              <div className="space-y-1">
-                                <p className="text-[9px] uppercase tracking-[0.28em] text-accentSoft/35">Industry</p>
-                                <p className="text-xs text-accentSoft/75">{project.industry}</p>
+                              <div className="space-y-0.5">
+                                <p className="text-[8px] uppercase tracking-[0.28em] text-accentSoft/35">Industry</p>
+                                <p className="text-[11px] leading-snug text-accentSoft/75">{project.industry}</p>
                               </div>
                             )}
                             {project.location && (
-                              <div className="space-y-1">
-                                <p className="text-[9px] uppercase tracking-[0.28em] text-accentSoft/35">Location</p>
-                                <p className="text-xs text-accentSoft/75">{project.location}</p>
+                              <div className="space-y-0.5">
+                                <p className="text-[8px] uppercase tracking-[0.28em] text-accentSoft/35">Location</p>
+                                <p className="text-[11px] leading-snug text-accentSoft/75">{project.location}</p>
                               </div>
                             )}
                             {project.role && (
-                              <div className="space-y-1">
-                                <p className="text-[9px] uppercase tracking-[0.28em] text-accentSoft/35">Role</p>
-                                <p className="text-xs text-accentSoft/75">{project.role}</p>
+                              <div className="space-y-0.5">
+                                <p className="text-[8px] uppercase tracking-[0.28em] text-accentSoft/35">Role</p>
+                                <p className="text-[11px] leading-snug text-accentSoft/75">{project.role}</p>
                               </div>
                             )}
                             {project.services && project.services.length > 0 && (
-                              <div className="space-y-1">
-                                <p className="text-[9px] uppercase tracking-[0.28em] text-accentSoft/35">Services</p>
+                              <div className="space-y-0.5">
+                                <p className="text-[8px] uppercase tracking-[0.28em] text-accentSoft/35">Services</p>
                                 <div className="flex flex-col gap-0.5">
                                   {project.services.map((s) => (
-                                    <p key={s} className="text-xs text-accentSoft/75">{s}</p>
+                                    <p key={s} className="text-[11px] leading-snug text-accentSoft/75">{s}</p>
                                   ))}
                                 </div>
                               </div>
