@@ -1,4 +1,4 @@
-export const navItems = [
+﻿export const navItems = [
   { label: 'Works', href: '#works' },
   { label: 'About', href: '#about' },
   { label: 'Capabilities', href: '#capabilities' },
@@ -19,7 +19,7 @@ export const works = [
     description:
       'Complete brand identity and website design for a new cafe concept launching in Canada. Delivered a scalable visual system covering print, packaging, signage, and web.',
     tools: ['Illustrator', 'Photoshop', 'WordPress'],
-    image: '/works/CraveTheory/crave-theory-logo.png',
+    image: '/works/crave-theory/crave-theory-logo.png',
   },
   {
     slug: 'nashta-tiffins',
@@ -29,7 +29,7 @@ export const works = [
     description:
       'Brand identity system designed for a home-delivery tiffin startup at launch stage, covering logo, print materials, and reusable brand assets for day-one commercial use.',
     tools: ['Illustrator', 'Photoshop'],
-    image: '/works/NashtaTiffins/nashta-tiffins-logo.png',
+    image: '/works/nashta-tiffins/nashta-tiffins-logo.png',
   },
   {
     slug: 'jersey-showcase-reel',
@@ -39,7 +39,7 @@ export const works = [
     description:
       '3D product visualization and reveal reel produced for Mastergrade FC to support their jersey launch on social media. Delivered photorealistic fabric renders and motion sequences using Blender and Photoshop.',
     tools: ['Blender', 'Photoshop'],
-    image: '/works/jerseyshocasereel/untitled.png',
+    image: '/works/jersey-showcase-reel/jersey-hero.png',
   },
   {
     slug: 'fantasy-character-renders',
@@ -49,7 +49,7 @@ export const works = [
     description:
       'Original 3D character design and rendering produced for TojoTalks, a media and content brand based in Hyderabad. Deliverables were scoped for use across digital content, thumbnails, and brand identity applications.',
     tools: ['Blender', 'Photoshop'],
-    image: '/works/FantasyCharacterRenders/tojomour10.png',
+    image: '/works/fantasy-character-renders/tojo-character-render-1.png',
   },
   {
     slug: 'interior-visualization',
@@ -59,7 +59,7 @@ export const works = [
     description:
       'Photorealistic interior renders produced for a residential design project in Manikonda, Hyderabad. Renders were used to present the proposed design to the end client for approval prior to construction and fit-out.',
     tools: ['D5 Render', 'SketchUp', 'Photoshop'],
-    image: '/works/Interiorvisualization/004.png',
+    image: '/works/interior-visualization/interior-render-2.png',
   },
   {
     slug: 'ppr-infra',
@@ -69,7 +69,7 @@ export const works = [
     description:
       'Corporate identity and brand system designed for PPR Infra, a Hyderabad-based infrastructure firm requiring professional materials for B2B communications and client-facing proposals.',
     tools: ['Illustrator', 'Photoshop'],
-    image: '/works/PPRInfra/ppr-logo.jpg',
+    image: '/works/ppr-infra/ppr-logo.jpg',
   },
 ];
 
@@ -84,7 +84,7 @@ export const projectCaseStudies = [
     location: 'Canada',
     role: 'Brand Designer',
     services: ['Brand Identity', 'Website Design', 'Visual System'],
-    heroImage: '/works/CraveTheory/crave-theory-logo.png',
+    heroImage: '/works/crave-theory/crave-theory-logo.png',
     overview:
       'Crave Theory commissioned a full brand build for a new coffee and dessert shop concept with no prior identity in place. The project scope covered everything from logo and visual system through to a live WordPress website. The client required a brand that could operate consistently across physical and digital touchpoints from day one.',
     creativeDirection:
@@ -98,9 +98,9 @@ export const projectCaseStudies = [
     visualIdentity:
       'The client needed a complete brand identity designed to function across signage, packaging, menus, and a website without any existing visual assets or brand guidelines to build from. The design challenge was to establish a clear brand system from scratch that would hold up across both print production and digital use, while remaining practical to apply across multiple formats without custom rework each time.',
     gallery: [
-      '/works/CraveTheory/crave-theory-logo.png',
-      '/works/CraveTheory/websitescreenshot1.png',
-      '/works/CraveTheory/websitescreenshot2.png',
+      '/works/crave-theory/crave-theory-logo.png',
+      '/works/crave-theory/crave-theory-website-1.png',
+      '/works/crave-theory/crave-theory-website-2.png',
     ],
     process: [
       { title: 'Brief & Discovery', description: 'Conducted a structured brand brief with the client to document business objectives, target audience, competitive context, and required touchpoints before beginning any design work.' },
@@ -130,7 +130,7 @@ export const projectCaseStudies = [
     location: 'Manikonda, Hyderabad, India',
     role: '3D Visualizer',
     services: ['Architectural Visualization', 'Interior Rendering', 'Post Processing'],
-    heroImage: '/works/Interiorvisualization/004.png',
+    heroImage: '/works/interior-visualization/interior-render-2.png',
     overview:
       'This project was commissioned by a residential interior design client in Manikonda, Hyderabad, requiring photorealistic renders of a proposed interior layout before construction and fit-out commenced. The renders served as the primary communication tool between the designer and end client, enabling design decisions to be reviewed and approved without physical samples or site visits. Deliverables were scoped to cover key rooms, material selections, and lighting conditions accurately represented in each frame.',
     creativeDirection:
@@ -144,10 +144,10 @@ export const projectCaseStudies = [
     visualIdentity:
       'The client required renders that accurately represented specified materials, furniture placement, and natural and artificial lighting conditions so that the end client could make informed decisions before committing to fit-out. The design challenge was to produce output that was technically precise enough to function as a client-approval document, while ensuring that proportions and finishes matched the actual specification rather than an idealised version of the space.',
     gallery: [
-      '/works/Interiorvisualization/004.png',
-      '/works/Interiorvisualization/003.png',
-      '/works/Interiorvisualization/007.png',
-      '/works/Interiorvisualization/009.png',
+      '/works/interior-visualization/interior-render-2.png',
+      '/works/interior-visualization/interior-render-1.png',
+      '/works/interior-visualization/interior-render-3.png',
+      '/works/interior-visualization/interior-render-4.png',
     ],
     process: [
       { title: 'Brief and Scope Review', description: 'Reviewed the interior designer\'s specification documents, floor plans, and material schedules to establish which rooms and camera angles were required, and confirmed the deliverable format and resolution with the client before beginning production.' },
@@ -174,7 +174,7 @@ export const projectCaseStudies = [
     location: 'India',
     role: 'Brand Designer',
     services: ['Logo Design', 'Print Design', 'Brand Assets'],
-    heroImage: '/works/NashtaTiffins/nashta-tiffins-logo.png',
+    heroImage: '/works/nashta-tiffins/nashta-tiffins-logo.png',
     overview:
       'Nashta Tiffins is a home-delivery tiffin service that commissioned a complete brand identity ahead of its launch. The client had no existing brand and required a system that could be applied to physical print materials and basic digital use from day one. The project scope covered logo design, print-ready packaging and voucher assets, and a self-contained brand system built for a limited startup budget.',
     creativeDirection:
@@ -188,10 +188,10 @@ export const projectCaseStudies = [
     visualIdentity:
       'The primary design challenge was building a functional brand system with no prior identity to build on, while keeping deliverables practical for a business operating on a tight launch budget. The identity needed to work legibly at small print sizes — on packaging, carry materials, and vouchers — and remain consistent without requiring ongoing design support. Client requirements prioritised usability and print compatibility over decorative treatment.',
     gallery: [
-      '/works/NashtaTiffins/nashta-tiffins-logo.png',
-      '/works/NashtaTiffins/Screenshot.png',
-      '/works/NashtaTiffins/nashta.jpg',
-      { src: '/works/NashtaTiffins/3d.mp4' },
+      '/works/nashta-tiffins/nashta-tiffins-logo.png',
+      '/works/nashta-tiffins/nashta-tiffins-packaging.png',
+      '/works/nashta-tiffins/nashta-tiffins-print.jpg',
+      { src: '/works/nashta-tiffins/nashta-3d-reveal.mp4' },
     ],
     process: [
       { title: 'Client Brief and Requirements Gathering', description: 'Reviewed the client\'s business model, target customer, and immediate print requirements. Defined project scope, format specifications, and the deliverables list before beginning any visual work.' },
@@ -221,7 +221,7 @@ export const projectCaseStudies = [
     location: 'Hyderabad, India',
     role: '3D Character Artist',
     services: ['Character Design', '3D Modeling', 'Texturing', 'Lighting', 'Rendering'],
-    heroImage: '/works/FantasyCharacterRenders/tojomour9.png',
+    heroImage: '/works/fantasy-character-renders/tojo-character-render-2.png',
     overview:
       'TojoTalks commissioned original 3D character assets to support their media and content brand. The project required a fully designed and rendered character that could function across multiple digital touchpoints, including content thumbnails, social media, and brand identity materials. All work was completed in 2024 using Blender and Photoshop.',
     creativeDirection:
@@ -235,9 +235,9 @@ export const projectCaseStudies = [
     visualIdentity:
       'The client needed production-quality 3D character renders that were versatile enough to serve both as standalone brand assets and as recurring visual identifiers within their content output. The design had to be distinct and consistent — built to hold up at varying sizes and across different digital formats without requiring reshoots or reworks for each use case.',
     gallery: [
-      { src: '/works/FantasyCharacterRenders/0010-0100.mp4', playbackRate: 0.25 },
-      '/works/FantasyCharacterRenders/tojomour10.png',
-      '/works/FantasyCharacterRenders/tojomour9.png',
+      { src: '/works/fantasy-character-renders/tojo-character-turntable.mp4', playbackRate: 0.25 },
+      '/works/fantasy-character-renders/tojo-character-render-1.png',
+      '/works/fantasy-character-renders/tojo-character-render-2.png',
     ],
     process: [
       { title: 'Brief & Direction', description: 'Reviewed client requirements, agreed on character concept direction, and defined the scope of deliverables including format requirements and intended commercial applications.' },
@@ -265,7 +265,7 @@ export const projectCaseStudies = [
     location: 'Remote',
     role: '3D Visualizer & Motion Designer',
     services: ['Product Visualization', 'Motion Design', 'Reveal Animation'],
-    heroImage: '/works/jerseyshocasereel/untitled.png',
+    heroImage: '/works/jersey-showcase-reel/jersey-hero.png',
     overview:
       'Mastergrade FC commissioned a 3D product visualization and reveal reel for their new football jersey ahead of a social media launch. The project required photorealistic fabric rendering, controlled camera motion, and a final output suitable for direct publication on Instagram. All work was completed in Blender and Photoshop in 2024.',
     creativeDirection:
@@ -279,10 +279,10 @@ export const projectCaseStudies = [
     visualIdentity:
       'The client needed a professional product reveal that would communicate jersey design quality and brand identity to their audience without access to physical photography. The design challenge was producing fabric simulation and surface rendering accurate enough to serve as the primary product communication, while keeping motion sequences concise and optimized for social media playback.',
     gallery: [
-      '/works/jerseyshocasereel/untitled.png',
-      { src: '/works/jerseyshocasereel/render-20000-0160.mp4' },
-      { src: '/works/jerseyshocasereel/render-110000-0080.mp4' },
-      { src: '/works/jerseyshocasereel/render-90000-0080-b.mp4' },
+      '/works/jersey-showcase-reel/jersey-hero.png',
+      { src: '/works/jersey-showcase-reel/jersey-reveal-2.mp4' },
+      { src: '/works/jersey-showcase-reel/jersey-reveal-1.mp4' },
+      { src: '/works/jersey-showcase-reel/jersey-reveal-4.mp4' },
     ],
     process: [
       { title: 'Brief & Scope Definition', description: 'Reviewed client requirements for the jersey reveal including platform specifications, motion style, and brand consistency guidelines. Confirmed deliverable formats and revision rounds before production began.' },
@@ -310,7 +310,7 @@ export const projectCaseStudies = [
     location: 'Hyderabad, India',
     role: 'Brand Designer',
     services: ['Corporate Identity', 'Brand System', 'Business Collateral'],
-    heroImage: '/works/PPRInfra/ppr-logo.jpg',
+    heroImage: '/works/ppr-infra/ppr-logo.jpg',
     overview:
       'PPR Infra commissioned a complete corporate identity to support their positioning in the B2B infrastructure sector. The company had no formal visual identity in place and needed a brand system that could be applied consistently across client proposals, formal communications, and business collateral. The project scope covered logo design, brand guidelines, and print-ready business materials.',
     creativeDirection:
@@ -324,8 +324,8 @@ export const projectCaseStudies = [
     visualIdentity:
       'The client operated without any visual identity, which created inconsistency across client-facing materials and limited their credibility in formal B2B engagements. The design challenge was to build a corporate identity from scratch that communicated professionalism and reliability, while remaining practical enough to scale across multiple collateral formats without requiring ongoing design support.',
     gallery: [
-      '/works/PPRInfra/ppr-logo.jpg',
-      '/works/PPRInfra/Logo_poster.jpg',
+      '/works/ppr-infra/ppr-logo.jpg',
+      '/works/ppr-infra/ppr-infra-brand-poster.jpg',
     ],
     process: [
       { title: 'Client Brief & Requirements Gathering', description: 'Conducted a structured intake to document client requirements, target audience, competitor positioning, and intended applications. Established the project scope, revision rounds, and delivery format before any design work began.' },

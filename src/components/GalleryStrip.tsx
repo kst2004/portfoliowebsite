@@ -1,24 +1,24 @@
-import Image from 'next/image';
+﻿import Image from 'next/image';
 import Reveal from './Reveal';
 
 const row1 = [
-  { label: 'Crave Theory',      src: '/works/CraveTheory/crave-theory-logo.png' },
-  { label: 'Web Design',        src: '/works/CraveTheory/websitescreenshot1.png' },
-  { label: 'Web Interface',     src: '/works/CraveTheory/websitescreenshot2.png' },
-  { label: 'Nashta Tiffins',    src: '/works/NashtaTiffins/nashta-tiffins-logo.png' },
-  { label: 'Print Design',      src: '/works/NashtaTiffins/nashta.jpg' },
-  { label: 'Fantasy Character', src: '/works/FantasyCharacterRenders/tojomour9.png' },
-  { label: 'Character Render',  src: '/works/FantasyCharacterRenders/tojomour10.png' },
+  { label: 'Crave Theory',      src: '/works/crave-theory/crave-theory-logo.png' },
+  { label: 'Web Design',        src: '/works/crave-theory/crave-theory-website-1.png' },
+  { label: 'Web Interface',     src: '/works/crave-theory/crave-theory-website-2.png' },
+  { label: 'Nashta Tiffins',    src: '/works/nashta-tiffins/nashta-tiffins-logo.png' },
+  { label: 'Print Design',      src: '/works/nashta-tiffins/nashta-tiffins-print.jpg' },
+  { label: 'Fantasy Character', src: '/works/fantasy-character-renders/tojo-character-render-2.png' },
+  { label: 'Character Render',  src: '/works/fantasy-character-renders/tojo-character-render-1.png' },
 ];
 
 const row2 = [
-  { label: 'Interior Viz',   src: '/works/Interiorvisualization/004.png' },
-  { label: 'Interior Viz',   src: '/works/Interiorvisualization/003.png' },
-  { label: 'Interior Viz',   src: '/works/Interiorvisualization/007.png' },
-  { label: 'Interior Viz',   src: '/works/Interiorvisualization/009.png' },
-  { label: 'PPR Branding',   src: '/works/PPRInfra/ppr-logo.jpg' },
-  { label: 'PPR Poster',     src: '/works/PPRInfra/Logo_poster.jpg' },
-  { label: 'Jersey Render',  src: '/works/jerseyshocasereel/untitled.png' },
+  { label: 'Interior Viz',   src: '/works/interior-visualization/interior-render-2.png' },
+  { label: 'Interior Viz',   src: '/works/interior-visualization/interior-render-1.png' },
+  { label: 'Interior Viz',   src: '/works/interior-visualization/interior-render-3.png' },
+  { label: 'Interior Viz',   src: '/works/interior-visualization/interior-render-4.png' },
+  { label: 'PPR Branding',   src: '/works/ppr-infra/ppr-logo.jpg' },
+  { label: 'PPR Poster',     src: '/works/ppr-infra/ppr-infra-brand-poster.jpg' },
+  { label: 'Jersey Render',  src: '/works/jersey-showcase-reel/jersey-hero.png' },
 ];
 
 function MarqueeRow({ items, direction }: { items: typeof row1; direction: 'left' | 'right' }) {

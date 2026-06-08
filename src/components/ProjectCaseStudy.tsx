@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Reveal from './Reveal';
 import Lightbox from './Lightbox';
@@ -36,18 +36,6 @@ type ProjectCaseStudyProps = {
 
 function VideoCard({ src, playbackRate = 1 }: { src: string; playbackRate?: number }) {
   const ref = useRef<HTMLVideoElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setInView(true); observer.disconnect(); } },
-      { rootMargin: '300px' }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
 
   const handleCanPlay = () => {
     if (ref.current) ref.current.playbackRate = playbackRate;
@@ -60,11 +48,11 @@ function VideoCard({ src, playbackRate = 1 }: { src: string; playbackRate?: numb
       loop
       muted
       playsInline
-      preload="none"
+      preload="auto"
       onCanPlay={handleCanPlay}
       className="h-full w-full object-cover"
     >
-      {inView && <source src={src} type="video/mp4" />}
+      <source src={src} type="video/mp4" />
     </video>
   );
 }
