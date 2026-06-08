@@ -65,7 +65,7 @@ export default function GalleryStrip() {
       </div>
 
       {/* Full-bleed marquee — hover pauses both rows */}
-      <div className="marquee-outer relative overflow-hidden">
+      <div aria-hidden="true" className="marquee-outer relative overflow-hidden">
         {/* Edge fade masks */}
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-bgPrimary to-transparent" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-bgPrimary to-transparent" />

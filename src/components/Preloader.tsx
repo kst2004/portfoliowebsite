@@ -1,12 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 export default function Preloader() {
+  const reduced = useReducedMotion();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (reduced) return;
     if (!sessionStorage.getItem('sk-preloader')) {
       sessionStorage.setItem('sk-preloader', '1');
       setVisible(true);

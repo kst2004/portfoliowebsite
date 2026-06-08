@@ -86,7 +86,7 @@ export default function Lightbox({ items, startIndex, onClose, projectTitle }: L
   useEffect(() => {
     const prevFocused = document.activeElement as HTMLElement | null;
     closeButtonRef.current?.focus();
-    return () => { prevFocused?.focus(); };
+    return () => { if (prevFocused?.isConnected) prevFocused.focus(); };
   }, []);
 
   const handleTouchStart = (e: React.TouchEvent) => {

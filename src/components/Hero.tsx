@@ -1,12 +1,13 @@
 'use client';
 
 import Image from 'next/image';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { rotatingTaglines } from '../data/content';
 import Reveal from './Reveal';
 
 export default function Hero() {
+  const reduced = useReducedMotion();
   const [taglineIndex, setTaglineIndex] = useState(0);
 
   useEffect(() => {
@@ -64,8 +65,9 @@ export default function Hero() {
         <Reveal className="relative" delay={0.18}>
           {/* Ambient glow behind portrait */}
           <motion.div
+            aria-hidden="true"
             className="absolute -inset-8 rounded-[36px] bg-accentGold/[0.18] blur-3xl"
-            animate={{ opacity: [0.7, 1, 0.7] }}
+            animate={reduced ? {} : { opacity: [0.7, 1, 0.7] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           />
           <motion.div
@@ -79,7 +81,7 @@ export default function Hero() {
             {/* Float animation instead of nearly-invisible scale loop */}
             <motion.div
               className="relative"
-              animate={{ y: [0, -10, 0] }}
+              animate={reduced ? {} : { y: [0, -10, 0] }}
               transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
             >
               <Image
@@ -101,7 +103,7 @@ export default function Hero() {
         <motion.a
           href="#works"
           className="flex flex-col items-center gap-2 text-accentSoft/40 transition hover:text-accentSoft/70"
-          animate={{ y: [0, 7, 0] }}
+          animate={reduced ? {} : { y: [0, 7, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         >
           <span className="text-[10px] uppercase tracking-[0.32em]">Scroll</span>

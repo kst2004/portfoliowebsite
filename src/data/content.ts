@@ -403,5 +403,3 @@ export const contactItems = [
   { label: 'Phone', value: '+91 9032100359', href: 'tel:+919032100359' },
 ];
 
-export const heroDescription =
-  'Freelance Creative Designer and 3D Visualizer based in Hyderabad, India, delivering brand identity, print design, architectural visualization, and motion work to clients in hospitality, construction, food and beverage, sports, interior design, and media. Every project is scoped, executed, and handed off to production standards — no student work, no spec pieces.';

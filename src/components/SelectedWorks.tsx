@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import { works } from '../data/content';
 import Reveal from './Reveal';
@@ -198,7 +198,7 @@ function GridLayout() {
 export default function SelectedWorks() {
   const [isDesktop, setIsDesktop] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const check = () => setIsDesktop(window.innerWidth >= 1024);
     check();
     window.addEventListener('resize', check);

@@ -43,7 +43,7 @@ export default function Process() {
                 {/* Step number */}
                 <div className="self-start pt-1">
                   <span className="font-heading text-[2.8rem] font-semibold leading-none tracking-tight text-accentGold/20 transition-colors duration-500 group-hover:text-accentGold/45 sm:text-[3.8rem]">
-                    0{index + 1}
+                    {String(index + 1).padStart(2, '0')}
                   </span>
                 </div>
 
