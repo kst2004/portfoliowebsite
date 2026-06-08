@@ -280,9 +280,9 @@ export const projectCaseStudies = [
       'The client needed a professional product reveal that would communicate jersey design quality and brand identity to their audience without access to physical photography. The design challenge was producing fabric simulation and surface rendering accurate enough to serve as the primary product communication, while keeping motion sequences concise and optimized for social media playback.',
     gallery: [
       '/works/jerseyshocasereel/untitled.png',
-      { src: '/works/jerseyshocasereel/render%2020000-0160.mp4' },
-      { src: '/works/jerseyshocasereel/render%20%20110000-0080.mp4' },
-      { src: '/works/jerseyshocasereel/render%20%2090000-0080%20(1).mp4' },
+      { src: '/works/jerseyshocasereel/render-20000-0160.mp4' },
+      { src: '/works/jerseyshocasereel/render-110000-0080.mp4' },
+      { src: '/works/jerseyshocasereel/render-90000-0080-b.mp4' },
     ],
     process: [
       { title: 'Brief & Scope Definition', description: 'Reviewed client requirements for the jersey reveal including platform specifications, motion style, and brand consistency guidelines. Confirmed deliverable formats and revision rounds before production began.' },

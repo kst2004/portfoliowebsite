@@ -20,16 +20,17 @@ function LightboxVideo({ src, playbackRate = 1 }: { src: string; playbackRate?: 
   return (
     <video
       ref={ref}
-      src={src}
       autoPlay
       loop
       muted
       playsInline
       controls
-      preload="auto"
+      preload="metadata"
       onCanPlay={handleCanPlay}
       style={{ maxHeight: '80svh', width: '100%', objectFit: 'contain', borderRadius: '12px' }}
-    />
+    >
+      <source src={src} type="video/mp4" />
+    </video>
   );
 }
 
