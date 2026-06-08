@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import PageTransition from '../components/PageTransition';
 import SmoothScroll from '../components/SmoothScroll';
@@ -112,8 +110,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <FilmGrain />
         <BackToTop />
         <PageTransition>{children}</PageTransition>
-        <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );
