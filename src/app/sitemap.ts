@@ -1,8 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { projectCaseStudies } from '../data/content';
 
-export const dynamic = 'force-static';
-
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://saitejakolan.vercel.app';
 
 export default function sitemap(): MetadataRoute.Sitemap {
