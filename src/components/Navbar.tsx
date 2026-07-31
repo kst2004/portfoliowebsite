@@ -84,7 +84,10 @@ export default function Navbar() {
                 aria-label={menuOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={menuOpen}
                 aria-controls="mobile-menu"
-                className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/[0.07] backdrop-blur-md transition hover:border-white/50 md:hidden"
+                /* 44px: the minimum comfortable touch target (WCAG 2.5.8,
+                   Apple HIG). This is the primary navigation control on a
+                   phone and was 36px. */
+                className="relative flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/[0.07] backdrop-blur-md transition hover:border-white/50 md:hidden"
               >
                 <span
                   className={`absolute block h-[1.5px] w-[18px] origin-center rounded-full bg-white transition-all duration-300 ease-in-out ${

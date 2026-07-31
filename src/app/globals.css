@@ -70,6 +70,16 @@ a {
   }
 }
 
+/* A fixed, full-viewport element with mix-blend-mode forces the entire page to
+   be re-blended as it scrolls. On desktop that is affordable; on a phone it is
+   one of the largest costs on the page, for a grain that is barely resolvable
+   at that pixel density. */
+@media (pointer: coarse) {
+  .grain-overlay {
+    display: none;
+  }
+}
+
 @keyframes marquee-left {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }

@@ -124,6 +124,12 @@ export default function LiquidGlass({
 
   const onPointerMove = useCallback(
     (event: PointerEvent<HTMLElement>) => {
+      // Touch and pen also emit pointermove — during a scroll, every finger
+      // drag over a card would start a rAF loop measuring layout, on exactly
+      // the interaction that most needs a free main thread. None of the
+      // effects this drives are reachable without hover, so ignore them.
+      if (event.pointerType !== 'mouse') return;
+
       const el = ref.current;
       if (!el) return;
 

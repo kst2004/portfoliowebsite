@@ -69,7 +69,17 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
             <div className="relative overflow-hidden rounded-[32px] border border-white/10 shadow-soft">
               <div className="relative min-h-[520px] w-full sm:min-h-[600px] lg:h-[68vh] lg:min-h-[560px]">
                 <motion.div className="absolute inset-0" initial={{ scale: 1.04 }} animate={{ scale: 1 }} transition={{ duration: 1.4, ease: 'easeOut' }}>
-                  <Image src={project.heroImage} alt={project.title} fill priority className="object-cover" />
+                  <Image
+                    src={project.heroImage}
+                    alt={project.title}
+                    fill
+                    priority
+                    /* Full-bleed hero, so the viewport width is the right hint
+                       at every breakpoint. Without this Next assumes 100vw
+                       anyway but cannot warn when that assumption is wrong. */
+                    sizes="100vw"
+                    className="object-cover"
+                  />
                 </motion.div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/15" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.12),transparent_35%),radial-gradient(circle_at_80%_75%,rgba(255,255,255,0.08),transparent_30%)]" />
@@ -209,7 +219,16 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                         </div>
                       ) : (
                         <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.9 }} className="relative aspect-[4/5]">
-                          <Image src={item} alt={`${project.title} gallery ${index + 1}`} fill className="object-cover" />
+                          <Image
+                            src={item}
+                            alt={`${project.title} gallery ${index + 1}`}
+                            fill
+                            /* One column on phones, two at md, three at xl —
+                               previously defaulted to 100vw, so a desktop
+                               visitor fetched three full-width images per row. */
+                            sizes="(max-width: 768px) 92vw, (max-width: 1280px) 46vw, 31vw"
+                            className="object-cover"
+                          />
                         </motion.div>
                       )}
                       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10 opacity-80 transition duration-700 group-hover:opacity-100" />

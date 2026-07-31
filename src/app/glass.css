@@ -492,6 +492,72 @@
 }
 
 /* ============================================================================
+   TOUCH / MOBILE BUDGET
+
+   backdrop-filter is by far the most expensive thing on this page. Every
+   instance forces its own render surface and re-samples everything beneath it
+   on each frame, and there are 23 of them. A desktop GPU absorbs that; a phone
+   spends its whole frame budget on it and the scroll drops frames.
+
+   The visual loss is smaller than it sounds. The page background is a nearly
+   solid near-black, so there is very little detail behind these panes to blur
+   in the first place — and on the work cards the imagery is a *child* of the
+   pane, which backdrop-filter never touched anyway. Raising the tint slightly
+   recovers the sense of a distinct surface at no per-frame cost.
+
+   The navigation is the deliberate exception: it is the one pane with genuinely
+   moving content passing behind it, the effect is its whole point, and there is
+   exactly one of it.
+   ========================================================================== */
+
+@media (pointer: coarse) {
+  .lg {
+    /* Tint now carries the surface, since the backdrop sample is gone. */
+    --glass-tint: rgba(255, 255, 255, 0.075);
+    --glass-tint-raised: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .lg--depth-2 {
+    --glass-tint: rgba(255, 255, 255, 0.05);
+  }
+
+  .lg--depth-3 {
+    --glass-tint: rgba(255, 255, 255, 0.035);
+  }
+
+  .lg-nav:not(.lg-nav--bare) {
+    -webkit-backdrop-filter: blur(16px) saturate(1.5);
+    backdrop-filter: blur(16px) saturate(1.5);
+  }
+
+  /* A composite every frame, forever, on every pane — for a reflection that is
+     never noticed on a phone. Pure battery cost. */
+  .lg__reflect::before {
+    animation: none;
+  }
+
+  /* feTurbulence + feDisplacementMap are far too expensive to rasterise on a
+     mobile GPU for an effect measured in single pixels. */
+  .lg--refract {
+    --lg-refract-filter: none;
+  }
+
+  /* mix-blend-mode pulls the layer off the fast opaque compositing path. At 2%
+     opacity on a small screen it is below the noise floor of the display. */
+  .lg__noise {
+    display: none;
+  }
+
+  /* Nothing can hover, so the specular can never light up — skip the layer
+     rather than compositing a permanently transparent one. */
+  .lg::before {
+    display: none;
+  }
+}
+
+/* ============================================================================
    ACCESSIBILITY
 
    Reduced motion keeps the material — only the movement stops. The specular

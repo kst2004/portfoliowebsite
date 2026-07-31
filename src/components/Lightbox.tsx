@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
 type GalleryItem = string | { src: string; playbackRate?: number };
@@ -132,7 +133,7 @@ export default function Lightbox({ items, startIndex, onClose, projectTitle }: L
         <button
           ref={closeButtonRef}
           onClick={onClose}
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/[0.07] text-white/60 transition hover:border-white/30 hover:text-white"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.07] text-white/60 transition hover:border-white/30 hover:text-white"
           aria-label="Close image viewer"
         >
           <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -160,22 +161,29 @@ export default function Lightbox({ items, startIndex, onClose, projectTitle }: L
             {isVideo ? (
               <LightboxVideo src={src} playbackRate={typeof item !== 'string' ? item.playbackRate : 1} />
             ) : (
-              <img
-                src={src}
-                alt={imageAlt}
+              /* next/image rather than a raw <img>: this was serving the full
+                 original asset, so opening the lightbox on a phone downloaded a
+                 multi-megabyte render to show it at ~390px wide. `fill` with
+                 object-contain keeps the letterboxed fit the raw tag had. */
+              <div
                 style={{
-                  display: 'block',
-                  width: 'auto',
-                  height: 'auto',
-                  maxWidth: '100%',
-                  maxHeight: '80svh',
-                  objectFit: 'contain',
-                  borderRadius: '12px',
+                  position: 'relative',
+                  width: '100%',
+                  height: '80svh',
                   userSelect: 'none',
                   WebkitUserSelect: 'none',
                 }}
-                draggable={false}
-              />
+              >
+                <Image
+                  src={src}
+                  alt={imageAlt}
+                  fill
+                  sizes="100vw"
+                  priority
+                  draggable={false}
+                  style={{ objectFit: 'contain', borderRadius: '12px' }}
+                />
+              </div>
             )}
           </motion.div>
         </AnimatePresence>
@@ -188,7 +196,7 @@ export default function Lightbox({ items, startIndex, onClose, projectTitle }: L
             <button
               onClick={prev}
               disabled={current === 0}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white/60 transition hover:border-white/30 hover:text-white disabled:pointer-events-none disabled:opacity-20"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white/60 transition hover:border-white/30 hover:text-white disabled:pointer-events-none disabled:opacity-20"
               aria-label="Previous image"
             >
               <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -204,7 +212,10 @@ export default function Lightbox({ items, startIndex, onClose, projectTitle }: L
                   role="tab"
                   aria-selected={i === current}
                   aria-label={`Image ${i + 1}`}
-                  className={`h-[3px] rounded-full transition-all duration-300 ${
+                  /* The visible dot stays 3px, but the pseudo-element widens
+                     the hit area to a thumb-sized band. Without it these are
+                     a 3px-tall target on the primary gallery control. */
+                  className={`relative h-[3px] rounded-full transition-all duration-300 before:absolute before:-inset-y-5 before:-inset-x-1 before:content-[''] ${
                     i === current ? 'w-6 bg-white' : 'w-3 bg-white/25 hover:bg-white/45'
                   }`}
                 />
@@ -214,7 +225,7 @@ export default function Lightbox({ items, startIndex, onClose, projectTitle }: L
             <button
               onClick={next}
               disabled={current === items.length - 1}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white/60 transition hover:border-white/30 hover:text-white disabled:pointer-events-none disabled:opacity-20"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white/60 transition hover:border-white/30 hover:text-white disabled:pointer-events-none disabled:opacity-20"
               aria-label="Next image"
             >
               <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
