@@ -2,15 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* The glass material system — tokens, layers, controls, chrome. */
+@import './glass.css';
+
 :root {
   color-scheme: dark;
-
-  /* Dispersion pair for the glass refraction — the only colour in the theme.
-     Held as raw RGB triples so they can be used at any alpha. Red leans
-     cool (toward crimson) to hold some separation from the orange, since
-     the two are near-neighbours on the wheel. */
-  --fringe-red: 255, 42, 76;
-  --fringe-orange: 255, 138, 30;
 }
 
 html,
@@ -18,16 +14,20 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100%;
-  background: #000000;
+  background: #050505;
 }
 
+/* Near-black rather than pure black. #000 gives the backdrop-filter nothing to
+   lift — brightness() on zero is still zero — so glass over it stays inert.
+   A few points up and the blur has luminance to work with, which is what lets
+   the panes read as translucent instead of painted on. */
 body {
   font-family: var(--font-inter), Inter, system-ui, sans-serif;
   background-image:
-    radial-gradient(circle at 18% 14%, rgba(255,255,255,0.05), transparent 44%),
-    radial-gradient(circle at 86% 80%, rgba(255,255,255,0.03), transparent 42%),
-    linear-gradient(180deg, #000000 0%, #1A1A1A 42%, #000000 100%);
-  color: #FFFFFF;
+    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.055), transparent 46%),
+    radial-gradient(circle at 84% 78%, rgba(255, 255, 255, 0.032), transparent 44%),
+    linear-gradient(180deg, #050505 0%, #131313 44%, #050505 100%);
+  color: #ffffff;
 }
 
 * {
@@ -40,8 +40,8 @@ a {
 }
 
 ::selection {
-  background: rgba(255,255,255,0.85);
-  color: #000000;
+  background: rgba(255, 255, 255, 0.85);
+  color: #050505;
 }
 
 @layer components {
@@ -58,35 +58,7 @@ a {
   }
 
   .kicker {
-    @apply mb-6 inline-flex items-center rounded-full border border-white/15 bg-white/[0.06] px-4 py-2 text-xs uppercase tracking-[0.28em] text-white;
-  }
-
-  .glass-panel {
-    @apply rounded-[28px] border border-white/10 bg-graphite/85 shadow-soft backdrop-blur-xl;
-  }
-
-  .glass-button {
-    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium tracking-wide text-white transition duration-700 ease-out;
-    background:
-      linear-gradient(145deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.05));
-    border: 1px solid rgba(255, 255, 255, 0.32);
-    box-shadow:
-      inset 0 1px 1px rgba(255, 255, 255, 0.35),
-      inset 0 -1px 1px rgba(255, 255, 255, 0.08),
-      0 8px 24px rgba(0, 0, 0, 0.28);
-    -webkit-backdrop-filter: blur(18px) saturate(180%);
-    backdrop-filter: blur(18px) saturate(180%);
-  }
-
-  .glass-button:hover {
-    transform: translateY(-1px) scale(1.02);
-    border-color: rgba(255, 255, 255, 0.65);
-    box-shadow:
-      inset 0 1px 1px rgba(255, 255, 255, 0.45),
-      inset 0 -1px 1px rgba(255, 255, 255, 0.16),
-      inset 2.5px 0 5px -2px rgba(var(--fringe-red), 0.55),
-      inset -2.5px 0 5px -2px rgba(var(--fringe-orange), 0.5),
-      0 12px 28px rgba(0, 0, 0, 0.34);
+    @apply mb-6 inline-flex items-center rounded-full border border-white/[0.12] bg-white/[0.06] px-4 py-2 text-xs uppercase tracking-[0.28em] text-white/90;
   }
 
   .muted-copy {
@@ -95,201 +67,6 @@ a {
 
   .grain-overlay {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23a)' opacity='0.11'/%3E%3C/svg%3E");
-  }
-}
-
-/* ──────────────────────────────────────────────────────────────────────────
-   Liquid glass
-   Two related effects sharing one optical language: a bright specular
-   highlight, a slight magnification, and chromatic fringing at the edges
-   where the "glass" refracts. The cyan/amber fringe colours are the one
-   deliberate exception to the black/white/grey palette — they read as a lens
-   artefact rather than as brand colour, and only appear on hover.
-   ────────────────────────────────────────────────────────────────────────── */
-
-@property --lens-r {
-  syntax: '<length>';
-  inherits: true;
-  initial-value: 0px;
-}
-
-/* ── Glass lens over text ── */
-
-.glass-text {
-  position: relative;
-  display: inline-block;
-  isolation: isolate;
-  --lens-x: 50%;
-  --lens-y: 50%;
-  --lens-r: 0px;
-  transition: --lens-r 0.5s cubic-bezier(0.2, 1, 0.2, 1);
-}
-
-/* Pointer-driven, so only arm it where there is a real pointer to track. */
-@media (hover: hover) and (pointer: fine) {
-  .glass-text:hover {
-    --lens-r: 108px;
-  }
-}
-
-.glass-text__lens,
-.glass-text__orb {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  clip-path: circle(var(--lens-r) at var(--lens-x) var(--lens-y));
-}
-
-/* Magnified copies of the text, scaled about the cursor. */
-.glass-text__ghost {
-  position: absolute;
-  inset: 0;
-  transform: scale(1.17);
-  transform-origin: var(--lens-x) var(--lens-y);
-}
-
-/* The two colour-split copies sit under the white core, so they only show
-   as fringes along the edges of each letterform. */
-.glass-text__ghost--red {
-  color: rgb(var(--fringe-red));
-  mix-blend-mode: screen;
-  transform: translate(-3px, -2px) scale(1.17);
-}
-
-.glass-text__ghost--orange {
-  color: rgb(var(--fringe-orange));
-  mix-blend-mode: screen;
-  transform: translate(3px, 2px) scale(1.17);
-}
-
-.glass-text__ghost--core {
-  color: rgba(255, 255, 255, 0.94);
-}
-
-/* Specular highlight (upper-left) plus the rim light around the sphere. */
-.glass-text__orb {
-  background:
-    radial-gradient(
-      circle at calc(var(--lens-x) - 30px) calc(var(--lens-y) - 34px),
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0) 40%
-    ),
-    radial-gradient(
-      circle at var(--lens-x) var(--lens-y),
-      rgba(255, 255, 255, 0) 60%,
-      rgba(255, 255, 255, 0.26) 84%,
-      rgba(255, 255, 255, 0.04) 95%,
-      rgba(255, 255, 255, 0) 100%
-    );
-  mix-blend-mode: screen;
-  -webkit-backdrop-filter: brightness(1.06) saturate(115%);
-  backdrop-filter: brightness(1.06) saturate(115%);
-}
-
-/* ── Liquid glass panels / cards ── */
-
-.liquid-glass {
-  position: relative;
-  isolation: isolate;
-  --gx: 50%;
-  --gy: 50%;
-  --glass-scale: 1.022;
-  transition:
-    transform 0.7s cubic-bezier(0.2, 1, 0.2, 1),
-    box-shadow 0.7s cubic-bezier(0.2, 1, 0.2, 1),
-    border-color 0.7s ease-out;
-}
-
-/* Specular orb that tracks the cursor, plus a broad ambient wash.
-   Layer order matters: the white core paints on top of the two offset
-   chromatic orbs, so the colour only escapes around its edges as a fringe. */
-.liquid-glass::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  mix-blend-mode: screen;
-  transition: opacity 0.6s ease-out;
-  background:
-    radial-gradient(
-      circle 70px at var(--gx) var(--gy),
-      rgba(255, 255, 255, 0.19) 0%,
-      rgba(255, 255, 255, 0.08) 40%,
-      rgba(255, 255, 255, 0.015) 64%,
-      rgba(255, 255, 255, 0) 76%
-    ),
-    radial-gradient(
-      circle 76px at calc(var(--gx) - 6px) calc(var(--gy) - 4px),
-      rgba(var(--fringe-red), 0.17) 0%,
-      rgba(var(--fringe-red), 0.04) 44%,
-      rgba(var(--fringe-red), 0) 66%
-    ),
-    radial-gradient(
-      circle 76px at calc(var(--gx) + 6px) calc(var(--gy) + 4px),
-      rgba(var(--fringe-orange), 0.15) 0%,
-      rgba(var(--fringe-orange), 0.035) 44%,
-      rgba(var(--fringe-orange), 0) 66%
-    ),
-    radial-gradient(
-      340px circle at var(--gx) var(--gy),
-      rgba(255, 255, 255, 0.06),
-      rgba(255, 255, 255, 0) 62%
-    );
-}
-
-/* Refraction rim: white bevel top and bottom, chromatic split on every edge. */
-.liquid-glass::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.6s ease-out;
-  box-shadow:
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.5),
-    inset 3px 0 7px -2px rgba(var(--fringe-red), 0.62),
-    inset -3px 0 7px -2px rgba(var(--fringe-orange), 0.58),
-    inset 0 4px 8px -4px rgba(var(--fringe-red), 0.4),
-    inset 0 -4px 8px -4px rgba(var(--fringe-orange), 0.36),
-    inset 0 -1.5px 0 rgba(255, 255, 255, 0.16);
-}
-
-/* Chrome (the nav pill) keeps the rim lit at rest and never zooms. */
-.liquid-glass--chrome {
-  --glass-scale: 1;
-}
-
-.liquid-glass--chrome::after {
-  opacity: 0.75;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .liquid-glass:hover {
-    transform: scale(var(--glass-scale));
-    box-shadow:
-      0 26px 60px rgba(0, 0, 0, 0.62),
-      0 0 0 1px rgba(255, 255, 255, 0.14);
-  }
-
-  .liquid-glass:hover::before,
-  .liquid-glass:hover::after {
-    opacity: 1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .glass-text:hover {
-    --lens-r: 0px;
-  }
-
-  .liquid-glass,
-  .liquid-glass:hover {
-    transform: none;
   }
 }
 

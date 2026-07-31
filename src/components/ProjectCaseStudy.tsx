@@ -6,6 +6,7 @@ import { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Reveal from './Reveal';
 import Lightbox from './Lightbox';
+import GlassCard from './GlassCard';
 
 type GalleryItem = string | { src: string; playbackRate?: number };
 
@@ -149,7 +150,7 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
             </Reveal>
             <div className="grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
               <Reveal>
-                <div className="glass-panel h-full space-y-6 p-7 sm:p-9">
+                <GlassCard interactive={false} className="h-full space-y-6 p-7 sm:p-9">
                   <div className="space-y-3">
                     <p className="text-xs uppercase tracking-[0.28em] text-white">Project Overview</p>
                     <p className="muted-copy">{project.overview}</p>
@@ -158,10 +159,10 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                     <p className="text-xs uppercase tracking-[0.28em] text-white">Design Approach</p>
                     <p className="muted-copy">{project.creativeDirection}</p>
                   </div>
-                </div>
+                </GlassCard>
               </Reveal>
               <Reveal delay={0.05}>
-                <div className="glass-panel h-full space-y-6 p-7 sm:p-9">
+                <GlassCard interactive={false} className="h-full space-y-6 p-7 sm:p-9">
                   <div className="space-y-3">
                     <p className="text-xs uppercase tracking-[0.28em] text-white">Objectives</p>
                     <ul className="space-y-3 text-sm leading-7 text-white/75">
@@ -177,7 +178,7 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                     <p className="text-xs uppercase tracking-[0.28em] text-white">Challenge</p>
                     <p className="muted-copy">{project.visualIdentity}</p>
                   </div>
-                </div>
+                </GlassCard>
               </Reveal>
             </div>
           </div>
@@ -221,7 +222,7 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                       </div>
 
                       <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5 opacity-0 transition duration-700 group-hover:opacity-100">
-                        <div className="glass-panel border-white/10 bg-black/30 px-4 py-3 text-xs uppercase tracking-[0.26em] text-white/80 backdrop-blur-xl">
+                        <div className="rounded-[22px] border border-white/[0.12] bg-black/40 px-4 py-3 text-xs uppercase tracking-[0.26em] text-white/80 backdrop-blur-xl">
                           {isVideo ? 'Motion render' : 'Click to expand'}
                         </div>
                       </div>
@@ -242,11 +243,11 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
             <div className="grid gap-5 lg:grid-cols-4">
               {project.process.map((step, index) => (
                 <Reveal key={step.title} delay={index * 0.06}>
-                  <div className="glass-panel h-full p-6 sm:p-7">
+                  <GlassCard className="h-full p-6 sm:p-7">
                     <p className="mb-4 text-xs uppercase tracking-[0.3em] text-white/50">0{index + 1}</p>
                     <h3 className="mb-3 font-heading text-2xl text-white">{step.title}</h3>
                     <p className="muted-copy">{step.description}</p>
-                  </div>
+                  </GlassCard>
                 </Reveal>
               ))}
             </div>
@@ -256,7 +257,7 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         <section className="section-shell pt-0">
           <div className="page-shell grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
             <Reveal>
-              <div className="glass-panel h-full p-7 sm:p-9">
+              <GlassCard interactive={false} className="h-full p-7 sm:p-9">
                 <p className="kicker">Tools Used</p>
                 <div className="flex flex-wrap gap-2">
                   {project.tools.map((tool) => (
@@ -278,13 +279,13 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                     </ul>
                   </div>
                 )}
-              </div>
+              </GlassCard>
             </Reveal>
             <Reveal delay={0.05}>
-              <div className="glass-panel h-full p-7 sm:p-9">
+              <GlassCard interactive={false} className="h-full p-7 sm:p-9">
                 <p className="kicker">Outcome</p>
                 <p className="muted-copy text-base leading-8">{project.outcome}</p>
-              </div>
+              </GlassCard>
             </Reveal>
           </div>
         </section>

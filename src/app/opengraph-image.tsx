@@ -13,7 +13,7 @@ export default async function OGImage() {
     (
       <div
         style={{
-          background: '#000000',
+          background: '#050505',
           width: '100%',
           height: '100%',
           display: 'flex',

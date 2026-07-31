@@ -1,0 +1,517 @@
+/* ============================================================================
+   LIQUID GLASS
+   ----------------------------------------------------------------------------
+   A layered material rather than a single translucent background.
+
+   The failure mode of most "glassmorphism" is treating glass as one blurred
+   rectangle. Real glass reads as glass because several optical effects arrive
+   together: the body refracts and tints, the surface catches a moving
+   specular, the edge picks up a bright bevel where it turns toward the light,
+   and the whole thing sits on a soft contact shadow. Each of those is its own
+   layer here so it can be tuned independently.
+
+   Stacking order, back to front:
+
+     1  Translucent base        .lg              background-color
+     2  Backdrop blur           .lg              backdrop-filter
+     3  Brightness lift         .lg              backdrop-filter (brightness)
+     -  content                 children
+     4  Animated reflections    .lg__reflect     slow drifting linear gradients
+     5  Fresnel edge light      .lg__fresnel     rim brightens toward grazing
+     6  Noise grain             .lg__noise       procedural, overlay blend
+     7  Specular highlight      .lg::before      pointer-tracked radial
+     8  Chromatic edge          .lg::after       R/B channel separation, edge only
+
+   Layers 4-8 render *after* children on purpose. Light on a pane of glass sits
+   above whatever is behind it, so the specular and grain read as surface, not
+   as background. All of them are pointer-events: none.
+
+   ── On the chromatic edge ──────────────────────────────────────────────────
+   Lateral chromatic aberration is a *radial* error: wavelengths focus at
+   different distances from the optical axis, so separation is zero at the
+   centre and grows toward the rim. That is the whole reason a tinted overlay
+   reads as fake — it puts colour where a lens would have none.
+
+   Layer 8 reproduces the real thing with two concentric inset rings. Inset
+   box-shadow only ever paints at the edges, so no mask is needed: red sits in
+   the outermost pixel, blue one pixel further in, green is never touched. The
+   result is red displaced outward, blue displaced inward, neutral everywhere
+   past the rim — and it is uniform around the whole perimeter, which is what
+   makes it radial rather than directional.
+
+   Peak alpha is 0.04. Above roughly 6% it stops reading as an optical property
+   and starts reading as a coloured border.
+   ========================================================================== */
+
+:root {
+  /* ── Material ──────────────────────────────────────────────────────────
+     Tint stays very low. Glass gets its presence from the edge and the
+     specular; a heavy fill is what makes acrylic look like dark plastic. */
+  --glass-tint: rgba(255, 255, 255, 0.06);
+  --glass-tint-raised: rgba(255, 255, 255, 0.09);
+
+  /* Two borders. The outer sits on the silhouette, the inner one pixel in —
+     that offset is what gives an edge thickness instead of a drawn outline. */
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-border-hover: rgba(255, 255, 255, 0.22);
+  --glass-inner-border: rgba(255, 255, 255, 0.08);
+
+  --glass-highlight: rgba(255, 255, 255, 0.18);
+  --glass-specular: rgba(255, 255, 255, 0.15);
+  --glass-shadow: rgba(0, 0, 0, 0.15);
+
+  /* ── Backdrop ──────────────────────────────────────────────────────────
+     24px is the ceiling before blur stops reading as a refractive body and
+     starts reading as fog. Saturation is doing most of the work: pushing
+     chroma in what shows through is what separates glass from frosted
+     plastic, and contrast keeps the blurred result from going muddy. */
+  --glass-blur: 24px;
+  --glass-brightness: 1.2;
+  --glass-contrast: 1.15;
+  --glass-saturate: 1.8;
+
+  --glass-backdrop: blur(var(--glass-blur)) brightness(var(--glass-brightness))
+    contrast(var(--glass-contrast)) saturate(var(--glass-saturate));
+
+  /* ── Geometry ──────────────────────────────────────────────────────────
+     Large but not pill-shaped. Past ~30px the corner reads as a lozenge and
+     the material stops looking rigid. */
+  --glass-radius: 26px;
+  --glass-radius-sm: 22px;
+
+  /* ── Motion ────────────────────────────────────────────────────────────
+     Long ease-out with almost no acceleration in — matches the deceleration
+     curve Apple uses system-wide. The spring is reserved for controls, where
+     a little overshoot reads as responsiveness rather than sloppiness. */
+  --glass-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --glass-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --glass-duration: 640ms;
+  --glass-duration-fast: 520ms;
+
+  /* ── Chromatic aberration ──────────────────────────────────────────────
+     Separation is one pixel per channel and never exceeds 4% alpha. Red and
+     blue are kept close to primary: a lens splits by wavelength, so muddying
+     them toward pastel would read as a tint rather than dispersion. */
+  --lg-ca-alpha: 0.04;
+  --lg-ca-red: 255, 40, 40;
+  --lg-ca-blue: 40, 90, 255;
+  /* Width of the band the aberration is confined to. Everything inside this
+     distance from the edge stays optically neutral. */
+  --lg-ca-band: 6px;
+
+  /* Pointer position, written by LiquidGlass. Defaults keep the specular
+     centred before the pointer ever enters. */
+  --lg-x: 50%;
+  --lg-y: 50%;
+
+  /* Normalised pointer vector from the element's centre, clamped to ±1.
+     Biases which side of the rim the separation favours, so the fringe
+     shifts as the viewing/lighting angle changes. */
+  --lg-ax: 0;
+  --lg-ay: 0;
+}
+
+/* ============================================================================
+   LAYER 1-3 — base, backdrop blur, brightness
+   ========================================================================== */
+
+.lg {
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--glass-radius);
+  background-color: var(--glass-tint);
+  border: 1px solid var(--glass-border);
+
+  -webkit-backdrop-filter: var(--glass-backdrop);
+  backdrop-filter: var(--glass-backdrop);
+
+  /* Contact shadow is soft and shallow — glass rests on the surface, it does
+     not hover over a pit. The inset white is light bouncing up into the body. */
+  box-shadow:
+    0 8px 30px var(--glass-shadow),
+    inset 0 2px 8px rgba(255, 255, 255, 0.04);
+
+  /* Promote once, here, rather than on every animated child. */
+  transform: translateZ(0);
+
+  transition:
+    transform var(--glass-duration) var(--glass-ease),
+    background-color var(--glass-duration) var(--glass-ease),
+    border-color var(--glass-duration) var(--glass-ease),
+    box-shadow var(--glass-duration) var(--glass-ease),
+    -webkit-backdrop-filter var(--glass-duration) var(--glass-ease),
+    backdrop-filter var(--glass-duration) var(--glass-ease);
+}
+
+/* Stacked sheets. Cards sitting inside cards must not share a tint or the
+   stack flattens into one slab — each depth steps the fill and the edge. */
+.lg--depth-2 {
+  --glass-tint: rgba(255, 255, 255, 0.04);
+  --glass-tint-raised: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-blur: 18px;
+}
+
+.lg--depth-3 {
+  --glass-tint: rgba(255, 255, 255, 0.028);
+  --glass-tint-raised: rgba(255, 255, 255, 0.055);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glass-blur: 14px;
+}
+
+.lg--radius-sm {
+  border-radius: var(--glass-radius-sm);
+}
+
+.lg--capsule {
+  border-radius: 999px;
+}
+
+/* Shared geometry for every overlay layer. The opacity transition is declared
+   once here so layers can be faded as a group — see .lg-nav--bare. */
+.lg__reflect,
+.lg__fresnel,
+.lg__noise,
+.lg::before,
+.lg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  transition: opacity var(--glass-duration) var(--glass-ease);
+}
+
+/* ============================================================================
+   LAYER 4 — animated reflections
+
+   Two shallow linear gradients drifting at different rates. Kept under 10%
+   opacity: the goal is that you notice the surface is alive without ever
+   catching the loop.
+   ========================================================================== */
+
+.lg__reflect {
+  overflow: hidden;
+  opacity: 0.6;
+}
+
+.lg__reflect::before {
+  content: '';
+  position: absolute;
+  /* Oversized so the rotation never exposes a corner. */
+  inset: -45%;
+  background-image:
+    linear-gradient(
+      115deg,
+      transparent 32%,
+      rgba(255, 255, 255, 0.05) 44%,
+      rgba(255, 255, 255, 0.09) 50%,
+      rgba(255, 255, 255, 0.05) 56%,
+      transparent 68%
+    ),
+    linear-gradient(
+      201deg,
+      transparent 38%,
+      rgba(255, 255, 255, 0.035) 52%,
+      transparent 66%
+    );
+  animation: lg-sheen-drift 19s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes lg-sheen-drift {
+  0% {
+    transform: translate3d(-9%, -5%, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(9%, 5%, 0) rotate(0.6deg);
+  }
+  100% {
+    transform: translate3d(-9%, -5%, 0) rotate(0deg);
+  }
+}
+
+/* ============================================================================
+   LAYER 5 — Fresnel edge light
+
+   Reflectance rises sharply toward grazing incidence, which is why the rim of
+   a thick crystal is always brighter than its face. Modelled as an inverse
+   radial: transparent through the middle, ramping up only in the last few
+   percent before the edge. This is what gives the pane apparent thickness —
+   without it, glass reads as a flat translucent card.
+   ========================================================================== */
+
+.lg__fresnel {
+  /* Held below 1 at rest so hover has headroom to brighten the rim. */
+  opacity: 0.8;
+  background: radial-gradient(
+    120% 120% at 50% 50%,
+    transparent 55%,
+    rgba(255, 255, 255, 0.04) 82%,
+    rgba(255, 255, 255, 0.1) 96%,
+    rgba(255, 255, 255, 0.14) 100%
+  );
+  /* Optical imperfection on the rim light itself — see #lg-chromatic. */
+  filter: var(--lg-refract-filter, none);
+}
+
+/* ============================================================================
+   LAYER 6 — noise
+
+   Real glass and real camera sensors both have grain; a perfectly smooth
+   gradient is the strongest tell that a surface is synthetic. Overlay blend
+   at 2% keeps it below conscious detection while breaking up banding in the
+   large gradients above.
+   ========================================================================== */
+
+.lg__noise {
+  opacity: 0.02;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ============================================================================
+   LAYER 7 — specular highlight  (::before)
+
+   One large, very soft radial that follows the pointer. Radius is deliberately
+   wide and peak opacity low: a tight bright dot reads as a flashlight, a broad
+   gradient reads as a reflection of a light source in the room.
+   ========================================================================== */
+
+.lg::before {
+  z-index: 1;
+  opacity: 0;
+  background: radial-gradient(
+    var(--lg-specular-size, 460px) circle at var(--lg-x) var(--lg-y),
+    var(--glass-specular) 0%,
+    rgba(255, 255, 255, 0.06) 36%,
+    transparent 66%
+  );
+}
+
+/* ============================================================================
+   LAYER 8 — chromatic edge  (::after)
+
+   Two concentric inset rings, one pixel apart. Inset box-shadow paints only at
+   the perimeter, so the separation is inherently edge-bound — no mask, and the
+   centre is mathematically untouched rather than merely faint.
+
+   Ring order is the physics: red is listed first so it occupies the outermost
+   pixel, blue is listed second with a wider spread so it survives only on the
+   inside of the red ring. Green is absent — it is the reference wavelength and
+   stays where it is.
+
+   The third and fourth shadows are the pointer-biased pair. They ride one
+   sub-pixel off-axis in the direction of the cursor so the fringe favours the
+   side the light is coming from, which is what stops the effect looking like a
+   static decal.
+   ========================================================================== */
+
+.lg::after {
+  z-index: 2;
+  box-shadow:
+    /* red — outermost pixel, displaced outward */
+    inset 0 0 0 1px rgba(var(--lg-ca-red), var(--lg-ca-alpha)),
+    /* blue — one pixel further in, displaced inward */
+    inset 0 0 0 2px rgba(var(--lg-ca-blue), calc(var(--lg-ca-alpha) * 0.9)),
+    /* directional bias, tracking the pointer */
+    inset calc(var(--lg-ax) * 1px) calc(var(--lg-ay) * 1px) 0 0
+      rgba(var(--lg-ca-red), calc(var(--lg-ca-alpha) * 0.75)),
+    inset calc(var(--lg-ax) * -1px) calc(var(--lg-ay) * -1px) 0 0
+      rgba(var(--lg-ca-blue), calc(var(--lg-ca-alpha) * 0.75)),
+    /* the bevel proper — white, so it never contributes colour */
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 0 0 1px var(--glass-inner-border),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    /* soft falloff across the aberration band, so the transition to the
+       neutral centre is a ramp rather than a hard line */
+    inset 0 0 var(--lg-ca-band) calc(var(--lg-ca-band) * -0.5)
+      rgba(255, 255, 255, 0.05);
+  transition: box-shadow var(--glass-duration) var(--glass-ease);
+}
+
+/* Opt-in optical distortion. feTurbulence is costly to rasterise, so this is
+   reserved for a few large surfaces rather than every card in a grid. */
+.lg--refract {
+  --lg-refract-filter: url(#lg-chromatic);
+}
+
+/* Progressive enhancement: where the engine honours an SVG filter reference in
+   backdrop-filter, the background behind the glass genuinely bends rather than
+   only blurring. Support is uneven — Safari and Firefox ignore it today — so
+   it is layered on top of an implementation that already stands without it. */
+@supports (backdrop-filter: url(#lg-chromatic)) {
+  .lg--refract {
+    -webkit-backdrop-filter: var(--glass-backdrop) url(#lg-backdrop-warp);
+    backdrop-filter: var(--glass-backdrop) url(#lg-backdrop-warp);
+  }
+}
+
+/* ============================================================================
+   INTERACTION
+
+   Lift, brighten, saturate, and bring the border up. Explicitly no glow:
+   a bloom around the silhouette is the single biggest tell of a "cyberpunk
+   dashboard" treatment. The card gets closer to the light instead.
+   ========================================================================== */
+
+@media (hover: hover) and (pointer: fine) {
+  .lg--interactive {
+    cursor: pointer;
+  }
+
+  .lg--interactive:hover {
+    transform: translateY(-3px);
+    background-color: var(--glass-tint-raised);
+    border-color: var(--glass-border-hover);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) brightness(1.3) contrast(1.2)
+      saturate(2);
+    backdrop-filter: blur(var(--glass-blur)) brightness(1.3) contrast(1.2)
+      saturate(2);
+    box-shadow:
+      0 18px 44px rgba(0, 0, 0, 0.22),
+      inset 0 2px 8px rgba(255, 255, 255, 0.06);
+  }
+
+  .lg--interactive:hover::before {
+    opacity: 1;
+  }
+
+  .lg--interactive:hover .lg__reflect {
+    opacity: 0.9;
+  }
+
+  /* Grazing-angle reflectance rises as the pane tilts toward the light — the
+     lift on hover is the closest analogue available to a flat page. */
+  .lg--interactive:hover .lg__fresnel {
+    opacity: 1;
+  }
+
+  /* Hover raises the bevel only. The aberration alphas are untouched — a lens
+     error does not intensify because a cursor arrived, and scaling it here is
+     exactly how the effect starts reading as a glow. */
+  .lg--interactive:hover::after {
+    box-shadow:
+      inset 0 0 0 1px rgba(var(--lg-ca-red), var(--lg-ca-alpha)),
+      inset 0 0 0 2px rgba(var(--lg-ca-blue), calc(var(--lg-ca-alpha) * 0.9)),
+      inset calc(var(--lg-ax) * 1px) calc(var(--lg-ay) * 1px) 0 0
+        rgba(var(--lg-ca-red), calc(var(--lg-ca-alpha) * 0.75)),
+      inset calc(var(--lg-ax) * -1px) calc(var(--lg-ay) * -1px) 0 0
+        rgba(var(--lg-ca-blue), calc(var(--lg-ca-alpha) * 0.75)),
+      inset 0 1px 0 rgba(255, 255, 255, 0.34),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.13),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+      inset 0 0 var(--lg-ca-band) calc(var(--lg-ca-band) * -0.5)
+        rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* ============================================================================
+   CONTROLS — capsule buttons
+   ========================================================================== */
+
+.lg-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.6rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #fff;
+  white-space: nowrap;
+  --lg-specular-size: 220px;
+  /* Spring on the way in so the control feels sprung, standard ease on the
+     way out so releasing never looks like a bounce-back. */
+  transition:
+    transform var(--glass-duration-fast) var(--glass-spring),
+    background-color var(--glass-duration-fast) var(--glass-ease),
+    border-color var(--glass-duration-fast) var(--glass-ease),
+    box-shadow var(--glass-duration-fast) var(--glass-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lg-button:hover {
+    transform: translateY(-2px) scale(1.025);
+  }
+}
+
+.lg-button:active {
+  transform: translateY(0) scale(0.985);
+  transition-duration: 120ms;
+}
+
+.lg-button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 3px;
+}
+
+/* Primary reads brighter through fill and edge, never through colour. */
+.lg-button--primary {
+  --glass-tint: rgba(255, 255, 255, 0.14);
+  --glass-tint-raised: rgba(255, 255, 255, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.28);
+  --glass-border-hover: rgba(255, 255, 255, 0.42);
+}
+
+/* ============================================================================
+   NAVIGATION — floating chrome
+
+   Suspended rather than attached: inset from the viewport on all sides with a
+   deeper contact shadow, so it reads as a pane above the page instead of a
+   bar welded to the top of it.
+   ========================================================================== */
+
+.lg-nav {
+  --lg-specular-size: 620px;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.28),
+    inset 0 2px 8px rgba(255, 255, 255, 0.05);
+}
+
+/* At the top of the page the material is dissolved rather than removed. Glass
+   needs something behind it to refract — over an empty hero it would only fog
+   a flat colour — but the element stays mounted so focus survives the scroll. */
+.lg-nav--bare {
+  background-color: transparent;
+  border-color: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
+.lg-nav--bare .lg__reflect,
+.lg-nav--bare .lg__fresnel,
+.lg-nav--bare .lg__noise,
+.lg-nav--bare::before,
+.lg-nav--bare::after {
+  opacity: 0;
+}
+
+/* ============================================================================
+   ACCESSIBILITY
+
+   Reduced motion keeps the material — only the movement stops. The specular
+   parks centred, the reflections hold still, and hover becomes a static
+   brightness change with no lift.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .lg,
+  .lg-button {
+    transition-duration: 1ms;
+  }
+
+  .lg__reflect::before {
+    animation: none;
+  }
+
+  .lg--interactive:hover,
+  .lg-button:hover,
+  .lg-button:active {
+    transform: none;
+  }
+}

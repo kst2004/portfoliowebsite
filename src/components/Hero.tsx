@@ -5,6 +5,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { rotatingTaglines } from '../data/content';
 import Reveal from './Reveal';
+import GlassButton from './GlassButton';
+import LiquidGlass from './LiquidGlass';
 
 export default function Hero() {
   // Reduced motion is handled globally by MotionProvider — see the note there.
@@ -53,12 +55,12 @@ export default function Hero() {
           </p>
 
           <div className="flex flex-wrap gap-4">
-            <a href="#works" className="glass-button">
+            <GlassButton as="a" href="#works">
               View Works
-            </a>
-            <a href="#contact" className="glass-button border-white/45 bg-white/[0.14]">
+            </GlassButton>
+            <GlassButton as="a" href="#contact" variant="primary">
               Contact Me
-            </a>
+            </GlassButton>
           </div>
         </Reveal>
 
@@ -71,29 +73,32 @@ export default function Hero() {
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           />
           <motion.div
-            className="glass-panel relative overflow-hidden p-3"
             initial={{ scale: 0.97, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true, amount: 0.35 }}
             transition={{ duration: 1.1, ease: [0.2, 1, 0.2, 1] }}
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40" />
-            {/* Float animation instead of nearly-invisible scale loop */}
-            <motion.div
-              className="relative"
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              <Image
-                src="/IMG_0010.jpg"
-                alt="Portrait of Saiteja Kolan"
-                width={900}
-                height={1200}
-                priority
-                sizes="(max-width: 1024px) 100vw, 45vw"
-                className="h-[380px] w-full rounded-[24px] object-cover object-[center_18%] grayscale sm:h-[520px] lg:h-[680px]"
-              />
-            </motion.div>
+            {/* One of the few surfaces carrying the displacement filter — it is
+                large, singular, and above the fold, so the cost buys the most. */}
+            <LiquidGlass refract className="relative overflow-hidden p-3">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40" />
+              {/* Float animation instead of nearly-invisible scale loop */}
+              <motion.div
+                className="relative"
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <Image
+                  src="/IMG_0010.jpg"
+                  alt="Portrait of Saiteja Kolan"
+                  width={900}
+                  height={1200}
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                  className="h-[380px] w-full rounded-[24px] object-cover object-[center_18%] grayscale sm:h-[520px] lg:h-[680px]"
+                />
+              </motion.div>
+            </LiquidGlass>
           </motion.div>
         </Reveal>
       </div>

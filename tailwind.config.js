@@ -6,12 +6,12 @@ export default {
       // Three-colour theme. `white` (#FFFFFF) comes from Tailwind's default
       // palette and carries every text/border tone via opacity modifiers.
       colors: {
-        ink: '#000000',      // black — page background
-        graphite: '#1A1A1A', // dark grey — panels and raised surfaces
+        ink: '#050505',      // near-black page background — see globals.css
+        graphite: '#131313',  // dark grey — solid (non-glass) raised surfaces
       },
       boxShadow: {
-        soft: '0 22px 55px rgba(0, 0, 0, 0.55)',
-        glow: '0 0 0 1px rgba(255, 255, 255, 0.16), 0 18px 40px rgba(0, 0, 0, 0.5)',
+        soft: '0 8px 30px rgba(0, 0, 0, 0.15)',
+        glow: '0 0 0 1px rgba(255, 255, 255, 0.12), 0 18px 44px rgba(0, 0, 0, 0.22)',
       },
       backgroundImage: {
         'cinematic-vignette': 'radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.055), transparent 45%), radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.03), transparent 40%)',

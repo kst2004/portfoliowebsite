@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import MotionProvider from '../components/MotionProvider';
+import { GlassFilterDefs } from '../components/LiquidGlass';
 import PageTransition from '../components/PageTransition';
 import SmoothScroll from '../components/SmoothScroll';
 import FilmGrain from '../components/FilmGrain';
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#000000',
+  themeColor: '#050505',
 };
 
 const personSchema = {
@@ -107,6 +108,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         >
           Skip to main content
         </a>
+        {/* SVG filter defs for the glass refraction — mounted once per document. */}
+        <GlassFilterDefs />
         <MotionProvider>
           <Preloader />
           <ScrollProgress />

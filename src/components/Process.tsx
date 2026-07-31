@@ -1,20 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import type { PointerEvent } from 'react';
 import { processSteps } from '../data/content';
 import Reveal from './Reveal';
-import GlassText from './GlassText';
-
-/* Rows keep Framer's hover nudge, so the glass classes are applied to the
-   motion element directly rather than through GlassCard — Framer owns the
-   inline transform and a wrapper would just fight it. */
-const trackPointer = (event: PointerEvent<HTMLDivElement>) => {
-  const el = event.currentTarget;
-  const rect = el.getBoundingClientRect();
-  el.style.setProperty('--gx', `${event.clientX - rect.left}px`);
-  el.style.setProperty('--gy', `${event.clientY - rect.top}px`);
-};
+import GlassCard from './GlassCard';
 
 const icons = [
   /* Discover — magnifying glass */
@@ -41,19 +29,16 @@ export default function Process() {
       <div className="page-shell space-y-14 overflow-x-hidden">
         <Reveal>
           <p className="kicker">Process</p>
-          <h2 className="section-heading">
-            <GlassText>From intent to polished output, every time.</GlassText>
-          </h2>
+          <h2 className="section-heading">From intent to polished output, every time.</h2>
         </Reveal>
 
-        <div className="divide-y divide-white/[0.07]">
+        {/* Sheets rather than divided rows — the glass edge separates them, so
+            a rule between would double up. */}
+        <div className="space-y-4">
           {processSteps.map((step, index) => (
             <Reveal key={step.title} delay={index * 0.07}>
-              <motion.div
-                onPointerMove={trackPointer}
-                className="liquid-glass group grid cursor-default grid-cols-[3.5rem_1fr] gap-x-6 gap-y-4 rounded-[24px] px-4 py-10 sm:grid-cols-[5rem_9rem_1fr] sm:gap-x-8 sm:px-6 lg:grid-cols-[6rem_11rem_1fr] lg:gap-x-12 lg:py-12"
-                whileHover={{ x: 4 }}
-                transition={{ duration: 0.35, ease: 'easeOut' }}
+              <GlassCard
+                className="group grid grid-cols-[3.5rem_1fr] gap-x-6 gap-y-4 px-5 py-9 sm:grid-cols-[5rem_9rem_1fr] sm:gap-x-8 sm:px-7 lg:grid-cols-[6rem_11rem_1fr] lg:gap-x-12 lg:py-11"
               >
                 {/* Step number */}
                 <div className="self-start pt-1">
@@ -98,9 +83,7 @@ export default function Process() {
                   </div>
                 </div>
 
-                {/* Top border accent (animates on hover) */}
-                <div className="pointer-events-none absolute left-0 top-0 col-span-full h-px w-0 bg-gradient-to-r from-white/60 to-transparent transition-[width] duration-500 group-hover:w-full" />
-              </motion.div>
+              </GlassCard>
             </Reveal>
           ))}
         </div>

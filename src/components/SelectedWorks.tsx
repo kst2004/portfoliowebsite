@@ -6,30 +6,21 @@ import { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import { works } from '../data/content';
 import Reveal from './Reveal';
-import GlassText from './GlassText';
-
-/* Framer owns the inline transform here (whileInView), so the glass classes go
-   on the motion element itself — a GlassCard wrapper would only conflict. */
-const trackPointer = (event: React.PointerEvent<HTMLDivElement>) => {
-  const el = event.currentTarget;
-  const rect = el.getBoundingClientRect();
-  el.style.setProperty('--gx', `${event.clientX - rect.left}px`);
-  el.style.setProperty('--gy', `${event.clientY - rect.top}px`);
-};
+import GlassCard from './GlassCard';
 
 function WorkCard({ work, index }: { work: typeof works[0]; index: number }) {
   return (
+    /* Framer owns the entrance transform, so it stays on an outer wrapper and
+       the glass sits inside — otherwise the inline transform from whileInView
+       and the CSS hover lift would fight over the same property. */
     <motion.div
-      onPointerMove={trackPointer}
-      className="liquid-glass group relative h-full w-full overflow-hidden rounded-[28px]"
+      className="h-full w-full"
       initial={{ opacity: 0, scale: 0.9, y: 24 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true, amount: 0.12 }}
       transition={{ duration: 0.8, ease: [0.2, 1, 0.2, 1] }}
-      style={{
-        boxShadow: '0 0 0 1px rgba(255,255,255,0.07)',
-      }}
     >
+      <GlassCard className="group relative h-full w-full overflow-hidden">
       <Link href={`/works/${work.slug}`} className="block h-full">
         {/* Full-bleed image */}
         <div className="absolute inset-0 overflow-hidden">
@@ -93,11 +84,8 @@ function WorkCard({ work, index }: { work: typeof works[0]; index: number }) {
           </div>
         </div>
 
-        {/* Animated border glow on hover */}
-        <motion.div
-          className="pointer-events-none absolute inset-0 rounded-[28px] border border-transparent transition-colors duration-500 group-hover:border-white/30"
-        />
       </Link>
+      </GlassCard>
     </motion.div>
   );
 }
@@ -221,9 +209,7 @@ export default function SelectedWorks() {
       <div className="page-shell pt-24 pb-10 sm:pt-28 lg:pt-32">
         <Reveal>
           <p className="kicker">Selected Works</p>
-          <h2 className="section-heading">
-            <GlassText>Brand identity, visualization, and 3D work for real clients.</GlassText>
-          </h2>
+          <h2 className="section-heading">Brand identity, visualization, and 3D work for real clients.</h2>
         </Reveal>
       </div>
 

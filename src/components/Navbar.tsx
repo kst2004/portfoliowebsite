@@ -4,19 +4,13 @@ import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { navItems } from '../data/content';
 import Logo from './Logo';
+import GlassNavbar from './GlassNavbar';
+import GlassButton from './GlassButton';
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
@@ -56,25 +50,13 @@ export default function Navbar() {
 
   const close = () => setMenuOpen(false);
 
-  const trackPointer = (event: React.PointerEvent<HTMLElement>) => {
-    const el = event.currentTarget;
-    const rect = el.getBoundingClientRect();
-    el.style.setProperty('--gx', `${event.clientX - rect.left}px`);
-    el.style.setProperty('--gy', `${event.clientY - rect.top}px`);
-  };
-
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50">
+        {/* Inset on all sides — the pane floats above the page rather than
+            clamping to the viewport edge. */}
         <div className="page-shell py-5">
-          <nav
-            onPointerMove={trackPointer}
-            className={`flex items-center justify-between rounded-full px-5 py-3 text-sm transition duration-700 lg:px-7 ${
-              scrolled
-                ? 'liquid-glass liquid-glass--chrome border border-white/15 bg-white/[0.08] shadow-soft backdrop-blur-2xl'
-                : 'border border-transparent bg-transparent'
-            }`}
-          >
+          <GlassNavbar>
             <a href="#top" onClick={close} className="text-white transition-opacity duration-300 hover:opacity-70">
               <Logo className="h-7 w-auto" />
             </a>
@@ -88,9 +70,13 @@ export default function Navbar() {
             </div>
 
             <div className="flex items-center gap-3">
-              <a href="#contact" className="glass-button px-5 py-2 text-xs uppercase tracking-[0.22em]">
+              <GlassButton
+                as="a"
+                href="#contact"
+                className="px-5 py-2 text-xs uppercase tracking-[0.22em]"
+              >
                 Contact
-              </a>
+              </GlassButton>
 
               <button
                 ref={triggerRef}
@@ -117,7 +103,7 @@ export default function Navbar() {
                 />
               </button>
             </div>
-          </nav>
+          </GlassNavbar>
         </div>
       </header>
 
@@ -149,13 +135,15 @@ export default function Navbar() {
                   {item.label}
                 </a>
               ))}
-              <a
+              <GlassButton
+                as="a"
                 href="#contact"
                 onClick={close}
-                className="mt-10 inline-flex items-center justify-center rounded-full border border-white/50 bg-white/10 px-10 py-3.5 text-sm uppercase tracking-[0.22em] text-white transition hover:bg-white/20"
+                variant="primary"
+                className="mt-10 px-10 py-3.5 text-sm uppercase tracking-[0.22em]"
               >
                 Contact
-              </a>
+              </GlassButton>
             </div>
 
             <div className="flex items-center justify-center gap-8 py-8 text-xs uppercase tracking-[0.22em] text-white/40">
