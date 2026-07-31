@@ -3,19 +3,18 @@ export default {
   content: ['./src/app/**/*.{ts,tsx}', './src/components/**/*.{ts,tsx}', './src/data/**/*.{ts,tsx}'],
   theme: {
     extend: {
+      // Three-colour theme. `white` (#FFFFFF) comes from Tailwind's default
+      // palette and carries every text/border tone via opacity modifiers.
       colors: {
-        bgPrimary: '#14181e',
-        bgSecondary: '#393E46',
-        accentGold: '#B55400',
-        accentSoft: '#EEEEEE',
-        glass: 'rgba(255,255,255,0.06)',
+        ink: '#000000',      // black — page background
+        graphite: '#1A1A1A', // dark grey — panels and raised surfaces
       },
       boxShadow: {
-        soft: '0 22px 55px rgba(0, 0, 0, 0.35)',
-        glow: '0 0 0 1px rgba(181, 84, 0, 0.2), 0 18px 40px rgba(181, 84, 0, 0.16)',
+        soft: '0 22px 55px rgba(0, 0, 0, 0.55)',
+        glow: '0 0 0 1px rgba(255, 255, 255, 0.16), 0 18px 40px rgba(0, 0, 0, 0.5)',
       },
       backgroundImage: {
-        'cinematic-vignette': 'radial-gradient(circle at 20% 18%, rgba(181, 84, 0, 0.09), transparent 45%), radial-gradient(circle at 80% 70%, rgba(181, 84, 0, 0.05), transparent 40%)',
+        'cinematic-vignette': 'radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.055), transparent 45%), radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.03), transparent 40%)',
       },
       fontFamily: {
         body: ['Inter', 'system-ui', 'sans-serif'],

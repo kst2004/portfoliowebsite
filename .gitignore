@@ -3,6 +3,8 @@ node_modules
 /.vite
 .next
 .vercel
+/out
 *.log
 .DS_Store
 *.tsbuildinfo
+.claude

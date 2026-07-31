@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
+import MotionProvider from '../components/MotionProvider';
 import PageTransition from '../components/PageTransition';
 import SmoothScroll from '../components/SmoothScroll';
 import FilmGrain from '../components/FilmGrain';
@@ -55,7 +56,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#14181e',
+  themeColor: '#000000',
 };
 
 const personSchema = {
@@ -102,16 +103,18 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <a
           href="#main-content"
-          className="fixed left-4 top-4 z-[999] -translate-y-20 rounded-full bg-accentGold px-5 py-2.5 text-sm font-medium text-bgPrimary transition-transform focus:translate-y-0 focus:outline-none"
+          className="fixed left-4 top-4 z-[999] -translate-y-20 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-ink transition-transform focus:translate-y-0 focus:outline-none"
         >
           Skip to main content
         </a>
-        <Preloader />
-        <ScrollProgress />
-        <SmoothScroll />
-        <FilmGrain />
-        <BackToTop />
-        <PageTransition>{children}</PageTransition>
+        <MotionProvider>
+          <Preloader />
+          <ScrollProgress />
+          <SmoothScroll />
+          <FilmGrain />
+          <BackToTop />
+          <PageTransition>{children}</PageTransition>
+        </MotionProvider>
         <Analytics />
         <SpeedInsights />
       </body>

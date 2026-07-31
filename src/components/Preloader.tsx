@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import Logo from './Logo';
 
 export default function Preloader() {
   const reduced = useReducedMotion();
@@ -21,27 +22,23 @@ export default function Preloader() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-[#14181e]"
+          className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-ink"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.7, ease: 'easeInOut' }}
         >
-          {/* Letters */}
-          <div className="relative flex items-end gap-[0.06em]">
-            {['S', 'K'].map((letter, i) => (
-              <motion.span
-                key={letter}
-                className="font-heading text-[5.5rem] font-semibold leading-none tracking-tight text-accentSoft sm:text-[7rem]"
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.65, delay: i * 0.14, ease: [0.2, 1, 0.2, 1] }}
-              >
-                {letter}
-              </motion.span>
-            ))}
-
-            {/* Gold underline */}
+          {/* Monogram */}
+          <div className="relative">
             <motion.div
-              className="absolute -bottom-2 left-0 h-[2px] rounded-full bg-accentGold"
+              initial={{ opacity: 0, y: 24, scale: 0.94 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.75, ease: [0.2, 1, 0.2, 1] }}
+            >
+              <Logo className="h-24 w-auto text-white sm:h-32" />
+            </motion.div>
+
+            {/* White underline */}
+            <motion.div
+              className="absolute -bottom-4 left-0 h-[2px] rounded-full bg-white"
               initial={{ width: 0 }}
               animate={{ width: '100%' }}
               transition={{ duration: 0.55, delay: 0.38, ease: 'easeOut' }}
@@ -50,7 +47,7 @@ export default function Preloader() {
 
           {/* Tagline */}
           <motion.p
-            className="mt-5 text-[10px] uppercase tracking-[0.4em] text-accentSoft/30"
+            className="mt-5 text-[10px] uppercase tracking-[0.4em] text-white/30"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.7 }}

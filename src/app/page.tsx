@@ -10,7 +10,7 @@ import Footer from '../components/Footer';
 
 export default function HomePage() {
   return (
-    <div className="relative min-h-screen overflow-x-clip bg-bgPrimary text-accentSoft">
+    <div className="relative min-h-screen overflow-x-clip bg-ink text-white">
       <Navbar />
       <main id="main-content">
         <Hero />

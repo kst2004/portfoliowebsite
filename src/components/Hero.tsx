@@ -1,13 +1,13 @@
 'use client';
 
 import Image from 'next/image';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { rotatingTaglines } from '../data/content';
 import Reveal from './Reveal';
 
 export default function Hero() {
-  const reduced = useReducedMotion();
+  // Reduced motion is handled globally by MotionProvider — see the note there.
   const [taglineIndex, setTaglineIndex] = useState(0);
 
   useEffect(() => {
@@ -26,14 +26,14 @@ export default function Hero() {
         <Reveal className="space-y-6 sm:space-y-9" y={34}>
           <div className="space-y-5">
             <p className="kicker">Freelance Designer</p>
-            <h1 className="font-heading text-[clamp(2.8rem,6.4vw,6.6rem)] font-semibold uppercase leading-[0.92] tracking-[0.08em] text-accentSoft">
+            <h1 className="font-heading text-[clamp(2.8rem,6.4vw,6.6rem)] font-semibold uppercase leading-[0.92] tracking-[0.08em] text-white">
               SAITEJA KOLAN
             </h1>
-            <h2 className="font-heading text-[clamp(1.25rem,2.4vw,2rem)] font-medium tracking-wide text-accentGold">
+            <h2 className="font-heading text-[clamp(1.25rem,2.4vw,2rem)] font-medium tracking-wide text-white/60">
               Creative Designer & 3D Visualizer
             </h2>
 
-            <div className="min-h-9 overflow-hidden text-sm uppercase tracking-[0.19em] text-accentSoft/70 sm:text-base">
+            <div className="min-h-9 overflow-hidden text-sm uppercase tracking-[0.19em] text-white/70 sm:text-base">
               <AnimatePresence mode="wait">
                 <motion.p
                   key={rotatingTaglines[taglineIndex]}
@@ -48,7 +48,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <p className="max-w-xl text-base leading-7 text-accentSoft/75 sm:text-lg sm:leading-8">
+          <p className="max-w-xl text-base leading-7 text-white/70 sm:text-lg sm:leading-8">
             Freelance Creative Designer and 3D Visualizer with real client experience across hospitality, construction, food & beverage, sports, architecture, and media.
           </p>
 
@@ -56,7 +56,7 @@ export default function Hero() {
             <a href="#works" className="glass-button">
               View Works
             </a>
-            <a href="#contact" className="glass-button border-accentGold/45 bg-accentGold/[0.08]">
+            <a href="#contact" className="glass-button border-white/45 bg-white/[0.14]">
               Contact Me
             </a>
           </div>
@@ -66,8 +66,8 @@ export default function Hero() {
           {/* Ambient glow behind portrait */}
           <motion.div
             aria-hidden="true"
-            className="absolute -inset-8 rounded-[36px] bg-accentGold/[0.18] blur-3xl"
-            animate={reduced ? {} : { opacity: [0.7, 1, 0.7] }}
+            className="absolute -inset-8 rounded-[36px] bg-white/[0.08] blur-3xl"
+            animate={{ opacity: [0.7, 1, 0.7] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           />
           <motion.div
@@ -81,7 +81,7 @@ export default function Hero() {
             {/* Float animation instead of nearly-invisible scale loop */}
             <motion.div
               className="relative"
-              animate={reduced ? {} : { y: [0, -10, 0] }}
+              animate={{ y: [0, -10, 0] }}
               transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
             >
               <Image
@@ -102,8 +102,8 @@ export default function Hero() {
       <div className="page-shell relative z-10 mt-8 flex justify-center lg:justify-start">
         <motion.a
           href="#works"
-          className="flex flex-col items-center gap-2 text-accentSoft/40 transition hover:text-accentSoft/70"
-          animate={reduced ? {} : { y: [0, 7, 0] }}
+          className="flex flex-col items-center gap-2 text-white/40 transition hover:text-white/70"
+          animate={{ y: [0, 7, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         >
           <span className="text-[10px] uppercase tracking-[0.32em]">Scroll</span>

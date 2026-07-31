@@ -205,7 +205,7 @@ export default function Lightbox({ items, startIndex, onClose, projectTitle }: L
                   aria-selected={i === current}
                   aria-label={`Image ${i + 1}`}
                   className={`h-[3px] rounded-full transition-all duration-300 ${
-                    i === current ? 'w-6 bg-accentGold' : 'w-3 bg-white/25 hover:bg-white/45'
+                    i === current ? 'w-6 bg-white' : 'w-3 bg-white/25 hover:bg-white/45'
                   }`}
                 />
               ))}

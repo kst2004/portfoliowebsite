@@ -6,11 +6,22 @@ import { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import { works } from '../data/content';
 import Reveal from './Reveal';
+import GlassText from './GlassText';
+
+/* Framer owns the inline transform here (whileInView), so the glass classes go
+   on the motion element itself — a GlassCard wrapper would only conflict. */
+const trackPointer = (event: React.PointerEvent<HTMLDivElement>) => {
+  const el = event.currentTarget;
+  const rect = el.getBoundingClientRect();
+  el.style.setProperty('--gx', `${event.clientX - rect.left}px`);
+  el.style.setProperty('--gy', `${event.clientY - rect.top}px`);
+};
 
 function WorkCard({ work, index }: { work: typeof works[0]; index: number }) {
   return (
     <motion.div
-      className="group relative h-full w-full overflow-hidden rounded-[28px]"
+      onPointerMove={trackPointer}
+      className="liquid-glass group relative h-full w-full overflow-hidden rounded-[28px]"
       initial={{ opacity: 0, scale: 0.9, y: 24 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true, amount: 0.12 }}
@@ -37,31 +48,31 @@ function WorkCard({ work, index }: { work: typeof works[0]; index: number }) {
 
         {/* Top bar */}
         <div className="absolute inset-x-0 top-0 flex items-center justify-between p-5">
-          <span className="font-heading text-[11px] tracking-[0.34em] text-accentSoft/25 transition-colors duration-500 group-hover:text-accentGold/60">
+          <span className="font-heading text-[11px] tracking-[0.34em] text-white/25 transition-colors duration-500 group-hover:text-white/70">
             {String(index + 1).padStart(2, '0')}
           </span>
-          <span className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[9px] uppercase tracking-[0.3em] text-accentSoft/50 backdrop-blur-sm transition-all duration-500 group-hover:border-accentGold/35 group-hover:text-accentGold">
+          <span className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[9px] uppercase tracking-[0.3em] text-white/50 backdrop-blur-sm transition-all duration-500 group-hover:border-white/40 group-hover:text-white">
             Case Study
           </span>
         </div>
 
         {/* Default state — title at bottom, fades on hover */}
         <div className="absolute inset-x-0 bottom-0 p-6 transition-all duration-500 ease-out group-hover:translate-y-3 group-hover:opacity-0">
-          <p className="mb-2 text-[10px] uppercase tracking-[0.28em] text-accentGold/80">{work.category}</p>
-          <h3 className="font-heading text-[1.55rem] font-medium leading-tight text-accentSoft">{work.title}</h3>
+          <p className="mb-2 text-[10px] uppercase tracking-[0.28em] text-white/55">{work.category}</p>
+          <h3 className="font-heading text-[1.55rem] font-medium leading-tight text-white">{work.title}</h3>
         </div>
 
         {/* Hover overlay — fades in with full info */}
         <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/60 to-black/20 p-6 opacity-0 backdrop-blur-[2px] transition-opacity duration-500 group-hover:opacity-100">
-          <p className="mb-1.5 text-[10px] uppercase tracking-[0.28em] text-accentGold/90">{work.category}</p>
-          <h3 className="mb-3 font-heading text-xl font-medium leading-tight text-accentSoft">{work.title}</h3>
-          <p className="mb-4 line-clamp-2 text-[13px] leading-relaxed text-accentSoft/60">{work.description}</p>
+          <p className="mb-1.5 text-[10px] uppercase tracking-[0.28em] text-white/55">{work.category}</p>
+          <h3 className="mb-3 font-heading text-xl font-medium leading-tight text-white">{work.title}</h3>
+          <p className="mb-4 line-clamp-2 text-[13px] leading-relaxed text-white/60">{work.description}</p>
 
           <div className="mb-5 flex flex-wrap gap-1.5">
             {work.tools.map((tool) => (
               <span
                 key={tool}
-                className="rounded-full border border-white/15 bg-white/[0.07] px-2.5 py-0.5 text-[10px] tracking-wide text-accentSoft/60"
+                className="rounded-full border border-white/15 bg-white/[0.07] px-2.5 py-0.5 text-[10px] tracking-wide text-white/60"
               >
                 {tool}
               </span>
@@ -69,7 +80,7 @@ function WorkCard({ work, index }: { work: typeof works[0]; index: number }) {
           </div>
 
           {/* CTA */}
-          <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-accentGold">
+          <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-white">
             View Case Study
             <motion.svg
               width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
@@ -84,7 +95,7 @@ function WorkCard({ work, index }: { work: typeof works[0]; index: number }) {
 
         {/* Animated border glow on hover */}
         <motion.div
-          className="pointer-events-none absolute inset-0 rounded-[28px] border border-transparent transition-colors duration-500 group-hover:border-accentGold/25"
+          className="pointer-events-none absolute inset-0 rounded-[28px] border border-transparent transition-colors duration-500 group-hover:border-white/30"
         />
       </Link>
     </motion.div>
@@ -151,10 +162,10 @@ function HorizontalScroll() {
 
           {/* Active index counter */}
           <div className="shrink-0">
-            <span className="font-heading text-[2rem] font-semibold tabular-nums leading-none text-accentSoft/70 sm:text-[2.4rem]">
+            <span className="font-heading text-[2rem] font-semibold tabular-nums leading-none text-white/70 sm:text-[2.4rem]">
               {String(activeIndex + 1).padStart(2, '0')}
             </span>
-            <span className="ml-1.5 text-xs text-accentSoft/20">
+            <span className="ml-1.5 text-xs text-white/20">
               / {String(works.length).padStart(2, '0')}
             </span>
           </div>
@@ -165,12 +176,12 @@ function HorizontalScroll() {
               className="h-full origin-left rounded-full"
               style={{
                 scaleX: scrollYProgress,
-                background: 'linear-gradient(90deg, #B55400 0%, #e07828 60%, rgba(181,84,0,0.3) 100%)',
+                background: 'linear-gradient(90deg, #FFFFFF 0%, rgba(255,255,255,0.65) 60%, rgba(255,255,255,0.3) 100%)',
               }}
             />
           </div>
 
-          <span className="hidden shrink-0 text-[10px] uppercase tracking-[0.34em] text-accentSoft/20 sm:block">
+          <span className="hidden shrink-0 text-[10px] uppercase tracking-[0.34em] text-white/20 sm:block">
             scroll
           </span>
         </div>
@@ -210,7 +221,9 @@ export default function SelectedWorks() {
       <div className="page-shell pt-24 pb-10 sm:pt-28 lg:pt-32">
         <Reveal>
           <p className="kicker">Selected Works</p>
-          <h2 className="section-heading">Brand identity, visualization, and 3D work for real clients.</h2>
+          <h2 className="section-heading">
+            <GlassText>Brand identity, visualization, and 3D work for real clients.</GlassText>
+          </h2>
         </Reveal>
       </div>
 

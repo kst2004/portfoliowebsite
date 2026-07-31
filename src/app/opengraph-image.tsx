@@ -1,6 +1,9 @@
 import { ImageResponse } from 'next/og';
+import { LOGO_ASPECT, LOGO_DATA_URI } from './logo-mark';
 
 export const runtime = 'edge';
+
+const MARK_HEIGHT = 92;
 export const alt = 'Saiteja Kolan — Freelance Creative Designer & 3D Visualizer';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
@@ -10,7 +13,7 @@ export default async function OGImage() {
     (
       <div
         style={{
-          background: '#14181e',
+          background: '#000000',
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -28,11 +31,11 @@ export default async function OGImage() {
             position: 'absolute',
             inset: 0,
             background:
-              'radial-gradient(circle at 15% 20%, rgba(181,84,0,0.18) 0%, transparent 48%), radial-gradient(circle at 85% 75%, rgba(181,84,0,0.09) 0%, transparent 42%)',
+              'radial-gradient(circle at 15% 20%, rgba(255,255,255,0.10) 0%, transparent 48%), radial-gradient(circle at 85% 75%, rgba(255,255,255,0.05) 0%, transparent 42%)',
           }}
         />
 
-        {/* Gold accent line */}
+        {/* White accent line */}
         <div
           style={{
             position: 'absolute',
@@ -40,8 +43,17 @@ export default async function OGImage() {
             left: 0,
             right: 0,
             height: '3px',
-            background: 'linear-gradient(90deg, #B55400 0%, rgba(181,84,0,0.3) 60%, transparent 100%)',
+            background: 'linear-gradient(90deg, #FFFFFF 0%, rgba(255,255,255,0.3) 60%, transparent 100%)',
           }}
+        />
+
+        {/* Brand mark — pinned top-left */}
+        <img
+          src={LOGO_DATA_URI}
+          width={Math.round(MARK_HEIGHT * LOGO_ASPECT)}
+          height={MARK_HEIGHT}
+          alt=""
+          style={{ position: 'absolute', top: '72px', left: '80px' }}
         />
 
         {/* Content */}
@@ -55,10 +67,10 @@ export default async function OGImage() {
               marginBottom: '4px',
             }}
           >
-            <div style={{ height: '1px', width: '36px', background: '#B55400', opacity: 0.8 }} />
+            <div style={{ height: '1px', width: '36px', background: '#FFFFFF', opacity: 0.8 }} />
             <span
               style={{
-                color: 'rgba(181,84,0,0.9)',
+                color: 'rgba(255,255,255,0.8)',
                 fontSize: '13px',
                 letterSpacing: '0.32em',
                 textTransform: 'uppercase',
@@ -71,7 +83,7 @@ export default async function OGImage() {
           {/* Name */}
           <span
             style={{
-              color: '#EEEEEE',
+              color: '#FFFFFF',
               fontSize: '82px',
               fontWeight: 700,
               lineHeight: 0.9,
@@ -85,7 +97,7 @@ export default async function OGImage() {
           {/* Title */}
           <span
             style={{
-              color: '#B55400',
+              color: 'rgba(255,255,255,0.7)',
               fontSize: '22px',
               fontWeight: 500,
               letterSpacing: '0.04em',
@@ -98,7 +110,7 @@ export default async function OGImage() {
           {/* Services */}
           <span
             style={{
-              color: 'rgba(238,238,238,0.38)',
+              color: 'rgba(255,255,255,0.38)',
               fontSize: '14px',
               letterSpacing: '0.22em',
               textTransform: 'uppercase',

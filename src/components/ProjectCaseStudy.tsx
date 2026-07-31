@@ -61,7 +61,7 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   return (
-    <div className="relative min-h-screen bg-bgPrimary text-accentSoft">
+    <div className="relative min-h-screen bg-ink text-white">
       <main id="main-content" className="overflow-x-clip">
         <section className="relative isolate pt-28 sm:pt-32 lg:pt-36">
           <div className="page-shell">
@@ -71,11 +71,11 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                   <Image src={project.heroImage} alt={project.title} fill priority className="object-cover" />
                 </motion.div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/15" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(181,84,0,0.22),transparent_35%),radial-gradient(circle_at_80%_75%,rgba(255,255,255,0.08),transparent_30%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.12),transparent_35%),radial-gradient(circle_at_80%_75%,rgba(255,255,255,0.08),transparent_30%)]" />
 
                 {/* Back to home — pinned to top-left, goes to works section */}
                 <div className="absolute left-0 top-0 z-20 p-5 sm:p-10 lg:p-14">
-                  <Link href="/#works" className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-accentSoft/70 transition hover:text-accentGold">
+                  <Link href="/#works" className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-white/70 transition hover:text-white">
                     ← Back to home
                   </Link>
                 </div>
@@ -85,17 +85,17 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                     <Reveal>
                       <div className="max-w-4xl space-y-3 sm:space-y-5">
                         {/* Category + year on same compact row */}
-                        <div className="flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-accentSoft/75">
+                        <div className="flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-white/75">
                           <span className="rounded-full border border-white/15 bg-black/25 px-2.5 py-1 backdrop-blur-md">{project.category}</span>
                           <span className="rounded-full border border-white/15 bg-black/25 px-2.5 py-1 backdrop-blur-md">{project.year}</span>
                         </div>
                         {/* Smaller title min on mobile so it doesn't dominate */}
-                        <h1 className="font-heading text-[clamp(2rem,7vw,6.5rem)] leading-[0.92] tracking-tight text-accentSoft">
+                        <h1 className="font-heading text-[clamp(2rem,7vw,6.5rem)] leading-[0.92] tracking-tight text-white">
                           {project.title}
                         </h1>
                         <div className="flex flex-wrap gap-1.5">
                           {project.tools.map((tool) => (
-                            <span key={tool} className="rounded-full border border-white/15 bg-white/[0.07] px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-accentSoft/80 backdrop-blur-md">
+                            <span key={tool} className="rounded-full border border-white/15 bg-white/[0.07] px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-white/80 backdrop-blur-md">
                               {tool}
                             </span>
                           ))}
@@ -104,28 +104,28 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                           <div className="grid grid-cols-2 gap-x-4 gap-y-3 pt-1 sm:grid-cols-4">
                             {project.industry && (
                               <div className="space-y-0.5">
-                                <p className="text-[8px] uppercase tracking-[0.28em] text-accentSoft/35">Industry</p>
-                                <p className="text-[11px] leading-snug text-accentSoft/75">{project.industry}</p>
+                                <p className="text-[8px] uppercase tracking-[0.28em] text-white/45">Industry</p>
+                                <p className="text-[11px] leading-snug text-white/75">{project.industry}</p>
                               </div>
                             )}
                             {project.location && (
                               <div className="space-y-0.5">
-                                <p className="text-[8px] uppercase tracking-[0.28em] text-accentSoft/35">Location</p>
-                                <p className="text-[11px] leading-snug text-accentSoft/75">{project.location}</p>
+                                <p className="text-[8px] uppercase tracking-[0.28em] text-white/45">Location</p>
+                                <p className="text-[11px] leading-snug text-white/75">{project.location}</p>
                               </div>
                             )}
                             {project.role && (
                               <div className="space-y-0.5">
-                                <p className="text-[8px] uppercase tracking-[0.28em] text-accentSoft/35">Role</p>
-                                <p className="text-[11px] leading-snug text-accentSoft/75">{project.role}</p>
+                                <p className="text-[8px] uppercase tracking-[0.28em] text-white/45">Role</p>
+                                <p className="text-[11px] leading-snug text-white/75">{project.role}</p>
                               </div>
                             )}
                             {project.services && project.services.length > 0 && (
                               <div className="space-y-0.5">
-                                <p className="text-[8px] uppercase tracking-[0.28em] text-accentSoft/35">Services</p>
+                                <p className="text-[8px] uppercase tracking-[0.28em] text-white/45">Services</p>
                                 <div className="flex flex-col gap-0.5">
                                   {project.services.map((s) => (
-                                    <p key={s} className="text-[11px] leading-snug text-accentSoft/75">{s}</p>
+                                    <p key={s} className="text-[11px] leading-snug text-white/75">{s}</p>
                                   ))}
                                 </div>
                               </div>
@@ -151,11 +151,11 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
               <Reveal>
                 <div className="glass-panel h-full space-y-6 p-7 sm:p-9">
                   <div className="space-y-3">
-                    <p className="text-xs uppercase tracking-[0.28em] text-accentGold/85">Project Overview</p>
+                    <p className="text-xs uppercase tracking-[0.28em] text-white">Project Overview</p>
                     <p className="muted-copy">{project.overview}</p>
                   </div>
                   <div className="space-y-3">
-                    <p className="text-xs uppercase tracking-[0.28em] text-accentGold/85">Design Approach</p>
+                    <p className="text-xs uppercase tracking-[0.28em] text-white">Design Approach</p>
                     <p className="muted-copy">{project.creativeDirection}</p>
                   </div>
                 </div>
@@ -163,18 +163,18 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
               <Reveal delay={0.05}>
                 <div className="glass-panel h-full space-y-6 p-7 sm:p-9">
                   <div className="space-y-3">
-                    <p className="text-xs uppercase tracking-[0.28em] text-accentGold/85">Objectives</p>
-                    <ul className="space-y-3 text-sm leading-7 text-accentSoft/82">
+                    <p className="text-xs uppercase tracking-[0.28em] text-white">Objectives</p>
+                    <ul className="space-y-3 text-sm leading-7 text-white/75">
                       {project.designGoals.map((goal) => (
                         <li key={goal} className="flex gap-3">
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accentGold" />
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-white/60" />
                           <span>{goal}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                   <div className="space-y-3">
-                    <p className="text-xs uppercase tracking-[0.28em] text-accentGold/85">Challenge</p>
+                    <p className="text-xs uppercase tracking-[0.28em] text-white">Challenge</p>
                     <p className="muted-copy">{project.visualIdentity}</p>
                   </div>
                 </div>
@@ -221,7 +221,7 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                       </div>
 
                       <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5 opacity-0 transition duration-700 group-hover:opacity-100">
-                        <div className="glass-panel border-white/10 bg-black/30 px-4 py-3 text-xs uppercase tracking-[0.26em] text-accentSoft/80 backdrop-blur-xl">
+                        <div className="glass-panel border-white/10 bg-black/30 px-4 py-3 text-xs uppercase tracking-[0.26em] text-white/80 backdrop-blur-xl">
                           {isVideo ? 'Motion render' : 'Click to expand'}
                         </div>
                       </div>
@@ -243,8 +243,8 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
               {project.process.map((step, index) => (
                 <Reveal key={step.title} delay={index * 0.06}>
                   <div className="glass-panel h-full p-6 sm:p-7">
-                    <p className="mb-4 text-xs uppercase tracking-[0.3em] text-accentGold/85">0{index + 1}</p>
-                    <h3 className="mb-3 font-heading text-2xl text-accentSoft">{step.title}</h3>
+                    <p className="mb-4 text-xs uppercase tracking-[0.3em] text-white/50">0{index + 1}</p>
+                    <h3 className="mb-3 font-heading text-2xl text-white">{step.title}</h3>
                     <p className="muted-copy">{step.description}</p>
                   </div>
                 </Reveal>
@@ -260,18 +260,18 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                 <p className="kicker">Tools Used</p>
                 <div className="flex flex-wrap gap-2">
                   {project.tools.map((tool) => (
-                    <span key={tool} className="rounded-full border border-white/15 bg-white/[0.05] px-4 py-2 text-xs uppercase tracking-[0.26em] text-accentSoft/80">
+                    <span key={tool} className="rounded-full border border-white/15 bg-white/[0.05] px-4 py-2 text-xs uppercase tracking-[0.26em] text-white/80">
                       {tool}
                     </span>
                   ))}
                 </div>
                 {project.deliverables && project.deliverables.length > 0 && (
                   <div className="mt-6 space-y-3">
-                    <p className="text-xs uppercase tracking-[0.28em] text-accentGold/85">Deliverables</p>
+                    <p className="text-xs uppercase tracking-[0.28em] text-white">Deliverables</p>
                     <ul className="space-y-1.5">
                       {project.deliverables.map((d) => (
-                        <li key={d} className="flex items-start gap-2 text-sm text-accentSoft/75">
-                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accentGold/60" />
+                        <li key={d} className="flex items-start gap-2 text-sm text-white/75">
+                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/60" />
                           {d}
                         </li>
                       ))}

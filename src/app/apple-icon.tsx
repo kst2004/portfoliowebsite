@@ -1,46 +1,30 @@
 import { ImageResponse } from 'next/og';
+import { LOGO_ASPECT, LOGO_DATA_URI } from './logo-mark';
 
 export const runtime = 'edge';
 export const size = { width: 180, height: 180 };
 export const contentType = 'image/png';
+
+const MARK_HEIGHT = 104;
 
 export default function AppleIcon() {
   return new ImageResponse(
     (
       <div
         style={{
-          background: '#14181e',
+          background: '#000000',
           width: '100%',
           height: '100%',
           display: 'flex',
-          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
-        {/* SK letters */}
-        <span
-          style={{
-            color: '#EEEEEE',
-            fontSize: '96px',
-            fontWeight: 700,
-            lineHeight: 1,
-            letterSpacing: '-3px',
-            fontFamily: 'system-ui, -apple-system, sans-serif',
-          }}
-        >
-          SK
-        </span>
-
-        {/* Gold underline */}
-        <div
-          style={{
-            height: '5px',
-            width: '130px',
-            background: '#B55400',
-            borderRadius: '4px',
-            marginTop: '10px',
-          }}
+        <img
+          src={LOGO_DATA_URI}
+          width={Math.round(MARK_HEIGHT * LOGO_ASPECT)}
+          height={MARK_HEIGHT}
+          alt=""
         />
       </div>
     ),

@@ -1,8 +1,20 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import type { PointerEvent } from 'react';
 import { processSteps } from '../data/content';
 import Reveal from './Reveal';
+import GlassText from './GlassText';
+
+/* Rows keep Framer's hover nudge, so the glass classes are applied to the
+   motion element directly rather than through GlassCard — Framer owns the
+   inline transform and a wrapper would just fight it. */
+const trackPointer = (event: PointerEvent<HTMLDivElement>) => {
+  const el = event.currentTarget;
+  const rect = el.getBoundingClientRect();
+  el.style.setProperty('--gx', `${event.clientX - rect.left}px`);
+  el.style.setProperty('--gy', `${event.clientY - rect.top}px`);
+};
 
 const icons = [
   /* Discover — magnifying glass */
@@ -29,30 +41,33 @@ export default function Process() {
       <div className="page-shell space-y-14 overflow-x-hidden">
         <Reveal>
           <p className="kicker">Process</p>
-          <h2 className="section-heading">From intent to polished output, every time.</h2>
+          <h2 className="section-heading">
+            <GlassText>From intent to polished output, every time.</GlassText>
+          </h2>
         </Reveal>
 
         <div className="divide-y divide-white/[0.07]">
           {processSteps.map((step, index) => (
             <Reveal key={step.title} delay={index * 0.07}>
               <motion.div
-                className="group grid cursor-default grid-cols-[3.5rem_1fr] gap-x-6 gap-y-4 py-10 sm:grid-cols-[5rem_9rem_1fr] sm:gap-x-8 lg:grid-cols-[6rem_11rem_1fr] lg:gap-x-12 lg:py-12"
+                onPointerMove={trackPointer}
+                className="liquid-glass group grid cursor-default grid-cols-[3.5rem_1fr] gap-x-6 gap-y-4 rounded-[24px] px-4 py-10 sm:grid-cols-[5rem_9rem_1fr] sm:gap-x-8 sm:px-6 lg:grid-cols-[6rem_11rem_1fr] lg:gap-x-12 lg:py-12"
                 whileHover={{ x: 4 }}
                 transition={{ duration: 0.35, ease: 'easeOut' }}
               >
                 {/* Step number */}
                 <div className="self-start pt-1">
-                  <span className="font-heading text-[2.8rem] font-semibold leading-none tracking-tight text-accentGold/20 transition-colors duration-500 group-hover:text-accentGold/45 sm:text-[3.8rem]">
+                  <span className="font-heading text-[2.8rem] font-semibold leading-none tracking-tight text-white/20 transition-colors duration-500 group-hover:text-white/50 sm:text-[3.8rem]">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                 </div>
 
                 {/* Title column — hidden on mobile, shown sm+ */}
                 <div className="hidden self-start pt-[0.6rem] sm:block">
-                  <div className="mb-3 text-accentGold/50 transition-colors duration-500 group-hover:text-accentGold/90">
+                  <div className="mb-3 text-white/45 transition-colors duration-500 group-hover:text-white/90">
                     {icons[index]}
                   </div>
-                  <h3 className="font-heading text-[1.25rem] font-medium uppercase tracking-[0.12em] text-accentSoft transition-colors duration-500 group-hover:text-accentGold">
+                  <h3 className="font-heading text-[1.25rem] font-medium uppercase tracking-[0.12em] text-white/75 transition-colors duration-500 group-hover:text-white">
                     {step.title}
                   </h3>
                 </div>
@@ -61,8 +76,8 @@ export default function Process() {
                 <div className="space-y-5">
                   {/* Mobile-only title */}
                   <div className="flex items-center gap-3 sm:hidden">
-                    <span className="text-accentGold/60">{icons[index]}</span>
-                    <h3 className="font-heading text-xl font-medium uppercase tracking-[0.1em] text-accentSoft">
+                    <span className="text-white/60">{icons[index]}</span>
+                    <h3 className="font-heading text-xl font-medium uppercase tracking-[0.1em] text-white">
                       {step.title}
                     </h3>
                   </div>
@@ -75,7 +90,7 @@ export default function Process() {
                     {step.outputs.map((output) => (
                       <span
                         key={output}
-                        className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-[11px] uppercase tracking-[0.2em] text-accentSoft/50 transition-all duration-500 group-hover:border-accentGold/25 group-hover:bg-accentGold/[0.06] group-hover:text-accentSoft/80"
+                        className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-[11px] uppercase tracking-[0.2em] text-white/50 transition-all duration-500 group-hover:border-white/30 group-hover:bg-white/[0.09] group-hover:text-white/85"
                       >
                         {output}
                       </span>
@@ -84,7 +99,7 @@ export default function Process() {
                 </div>
 
                 {/* Top border accent (animates on hover) */}
-                <div className="pointer-events-none absolute left-0 top-0 col-span-full h-px w-0 bg-gradient-to-r from-accentGold/60 to-transparent transition-[width] duration-500 group-hover:w-full" />
+                <div className="pointer-events-none absolute left-0 top-0 col-span-full h-px w-0 bg-gradient-to-r from-white/60 to-transparent transition-[width] duration-500 group-hover:w-full" />
               </motion.div>
             </Reveal>
           ))}
