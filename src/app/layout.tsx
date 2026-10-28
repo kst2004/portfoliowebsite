@@ -4,42 +4,34 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import MotionProvider from '../components/MotionProvider';
-import { GlassFilterDefs } from '../components/LiquidGlass';
-import PageTransition from '../components/PageTransition';
-import SmoothScroll from '../components/SmoothScroll';
-import FilmGrain from '../components/FilmGrain';
-import ScrollProgress from '../components/ScrollProgress';
-import BackToTop from '../components/BackToTop';
-import Preloader from '../components/Preloader';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://saitejakolan.vercel.app';
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'Saiteja Kolan — Freelance Creative Designer & 3D Visualizer',
+    default: 'Saiteja Kolan — Multidisciplinary Designer & Builder',
     template: '%s | Saiteja Kolan',
   },
   description:
-    'Freelance Creative Designer and 3D Visualizer based in Hyderabad. Brand identity, print design, architectural visualization, and motion work delivered to production standards across hospitality, construction, food & beverage, sports, architecture, and media.',
+    'A multidisciplinary portfolio exploring design, software, 3D visualization, aviation, electronics, and creative technology. Selected projects, experiments, and things built by Saiteja Kolan.',
   keywords: [
     'Saiteja Kolan',
-    'freelance designer',
-    '3D visualizer',
+    'multidisciplinary designer',
+    'creative developer',
+    'software projects',
     'brand identity',
-    'logo design',
-    'architectural visualization',
-    'print design',
+    '3D visualization',
+    'creative technology',
+    'automation',
+    'electronics',
     'Hyderabad',
-    'interior rendering',
   ],
   authors: [{ name: 'Saiteja Kolan', url: BASE_URL }],
   openGraph: {
-    title: 'Saiteja Kolan — Freelance Creative Designer & 3D Visualizer',
-    description:
-      'Freelance Creative Designer and 3D Visualizer based in Hyderabad. Brand identity, print design, and architectural visualization delivered to production standards.',
+    title: 'Saiteja Kolan — Multidisciplinary Designer & Builder',
+    description: 'Design, software, experiments, and everything in between.',
     url: BASE_URL,
     type: 'website',
     locale: 'en_US',
@@ -47,9 +39,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Saiteja Kolan — Freelance Creative Designer & 3D Visualizer',
-    description:
-      'Freelance Creative Designer and 3D Visualizer based in Hyderabad. Brand identity, print design, and architectural visualization.',
+    title: 'Saiteja Kolan — Multidisciplinary Designer & Builder',
+    description: 'Design, software, experiments, and everything in between.',
     creator: '@saitejakolan',
   },
 };
@@ -64,12 +55,13 @@ const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Saiteja Kolan',
-  jobTitle: 'Freelance Creative Designer & 3D Visualizer',
+  jobTitle: 'Multidisciplinary Designer and Builder',
   url: BASE_URL,
   email: 'kolansaiteja15@gmail.com',
   sameAs: [
     'https://www.linkedin.com/in/kolansaiteja',
     'https://instagram.com/saitejakolan',
+    'https://github.com/kst2004',
   ],
   address: {
     '@type': 'PostalAddress',
@@ -77,12 +69,13 @@ const personSchema = {
     addressCountry: 'IN',
   },
   knowsAbout: [
+    'Visual Design',
     'Brand Identity',
-    'Logo Design',
-    'Print Design',
+    'Software Development',
     '3D Visualization',
-    'Architectural Rendering',
-    'Motion Design',
+    'Creative Technology',
+    'Electronics',
+    'Automation',
   ],
 };
 
@@ -104,19 +97,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <a
           href="#main-content"
-          className="fixed left-4 top-4 z-[999] -translate-y-20 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-ink transition-transform focus:translate-y-0 focus:outline-none"
+          className="fixed left-4 top-4 z-[999] -translate-y-20 bg-white px-5 py-2.5 text-sm font-medium text-black transition-transform focus:translate-y-0 focus:outline-none"
         >
           Skip to main content
         </a>
-        {/* SVG filter defs for the glass refraction — mounted once per document. */}
-        <GlassFilterDefs />
         <MotionProvider>
-          <Preloader />
-          <ScrollProgress />
-          <SmoothScroll />
-          <FilmGrain />
-          <BackToTop />
-          <PageTransition>{children}</PageTransition>
+          {children}
         </MotionProvider>
         <Analytics />
         <SpeedInsights />
