@@ -2,103 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* The glass material system — tokens, layers, controls, chrome. */
-@import './glass.css';
-
 :root {
   color-scheme: dark;
+  --portfolio-black: #050505;
+  --portfolio-white: #f7f7f7;
+  --portfolio-red: #ed3434;
 }
 
-html,
+html {
+  scroll-behavior: auto;
+  background: var(--portfolio-black);
+  scroll-padding-top: 5rem;
+}
+
 body {
   margin: 0;
   padding: 0;
   min-height: 100%;
-  background: #050505;
-}
-
-/* Near-black rather than pure black. #000 gives the backdrop-filter nothing to
-   lift — brightness() on zero is still zero — so glass over it stays inert.
-   A few points up and the blur has luminance to work with, which is what lets
-   the panes read as translucent instead of painted on. */
-body {
+  background: var(--portfolio-black);
+  color: var(--portfolio-white);
   font-family: var(--font-inter), Inter, system-ui, sans-serif;
-  background-image:
-    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.055), transparent 46%),
-    radial-gradient(circle at 84% 78%, rgba(255, 255, 255, 0.032), transparent 44%),
-    linear-gradient(180deg, #050505 0%, #131313 44%, #050505 100%);
-  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+a { color: inherit; text-decoration: none; }
 
 ::selection {
-  background: rgba(255, 255, 255, 0.85);
-  color: #050505;
+  background: var(--portfolio-red);
+  color: #fff;
 }
 
-@layer components {
-  .page-shell {
-    @apply mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-14;
-  }
+button, input { font: inherit; }
 
-  .section-shell {
-    @apply py-24 sm:py-28 lg:py-32;
-  }
-
-  .section-heading {
-    @apply font-heading text-[clamp(2rem,4.2vw,4.4rem)] font-semibold tracking-tight text-white;
-  }
-
-  .kicker {
-    @apply mb-6 inline-flex items-center rounded-full border border-white/[0.12] bg-white/[0.06] px-4 py-2 text-xs uppercase tracking-[0.28em] text-white/90;
-  }
-
-  .muted-copy {
-    @apply text-[15px] leading-7 text-white/70 sm:text-base;
-  }
-
-  .grain-overlay {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23a)' opacity='0.11'/%3E%3C/svg%3E");
-  }
+.experience-nav {
+  background: linear-gradient(180deg, rgba(5,5,5,.72), transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-/* A fixed, full-viewport element with mix-blend-mode forces the entire page to
-   be re-blended as it scrolls. On desktop that is affordable; on a phone it is
-   one of the largest costs on the page, for a grain that is barely resolvable
-   at that pixel density. */
-@media (pointer: coarse) {
-  .grain-overlay {
-    display: none;
-  }
+.experience-monitor {
+  transform-origin: center center;
+  will-change: opacity, transform;
 }
 
-@keyframes marquee-left {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+.experience-data-wall {
+  mask-image: radial-gradient(ellipse at center, #000 8%, transparent 74%);
 }
 
-@keyframes marquee-right {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
-}
-
-.animate-marquee-left  { animation: marquee-left  38s linear infinite; }
-.animate-marquee-right { animation: marquee-right 46s linear infinite; }
-
-.marquee-outer:hover .animate-marquee-left,
-.marquee-outer:hover .animate-marquee-right {
-  animation-play-state: paused;
+@media (max-width: 640px) {
+  .experience-journey { height: 230vh; }
+  .experience-monitor { top: 47%; }
+  .experience-data-wall { font-size: 9px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee-left  { animation-duration: 120s; }
-  .animate-marquee-right { animation-duration: 140s; }
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
