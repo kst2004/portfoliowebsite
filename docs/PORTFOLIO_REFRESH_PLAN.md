@@ -82,3 +82,22 @@ Upgrade the existing portfolio into a fast, accessible, multi-disciplinary showc
 
 ## Release gate
 No merge to `main`, production alias change, or production deployment until the owner has reviewed the preview and explicitly approved release.
+
+
+## Confirmed creative decisions (2026-10-28)
+- Opening: start on a black screen; reveal a premium computer monitor as the visitor scrolls.
+- Visual language: product-film art direction, restrained lighting, typography, real project imagery, and black / white / red accents. No people, cyberpunk, or overt sci-fi visuals.
+- Motion: balanced scroll-scrubbed reveals and camera-like transitions; avoid a real-time 3D game and avoid motion that blocks access to work.
+- Existing morph-glass: replace the prominent glass-heavy theme with cleaner surfaces and a more editorial, product-focused system.
+- Projects: keep the cinematic introduction concise and make the work available through a searchable, filterable archive.
+- Mobile: adapt the composition and shorten/simplify the scroll sequence for smaller screens.
+- 404: share the same visual language with restrained red lighting and a clear route home.
+
+## Current implementation checkpoint
+- Added `src/components/ExperienceHome.tsx` on the feature branch with a scroll-linked monitor/code introduction, multidisciplinary interest panels, a searchable/filterable project section, About, and contact.
+- Switched `src/app/page.tsx` to the new experience.
+- Replaced the global morph-glass styling with a restrained black/white/red foundation in `src/app/globals.css`.
+- Simplified `src/app/layout.tsx` to remove the old preloader, glass filter definitions, global grain, and legacy scroll/page-transition overlays that would conflict with the new motion direction. Analytics and Speed Insights remain.
+- Restyled `src/app/not-found.tsx` to match the new visual system with a subtle red state.
+- This is the first coded prototype, not a release candidate. It still needs a build/type check, visual review, mobile tuning, route and asset verification, and follow-up work on the full project archive/case-study system.
+- No merge, production alias change, or production deployment is authorized.
