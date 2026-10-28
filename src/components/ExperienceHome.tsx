@@ -81,7 +81,7 @@ export default function ExperienceHome() {
               <p className="mt-8 max-w-lg text-xs leading-6 text-white/50 sm:text-sm">Design, software, experiments, and everything in between.</p>
             </motion.div>
 
-            <motion.div style={{ opacity: monitorOpacity, scale: monitorScale }} className="experience-monitor w-full">
+            <motion.div style={{ opacity: monitorOpacity, scale: monitorScale, x: "-50%" }} className="experience-monitor absolute left-1/2 top-[35%] w-[min(88vw,850px)]">
               <div className="relative rounded-[12px] border border-white/25 bg-[#111] p-[5px] shadow-[0_35px_120px_rgba(0,0,0,.8)] sm:rounded-[18px] sm:p-2">
                 <div className="relative aspect-[16/9] overflow-hidden rounded-[7px] border border-white/10 bg-[#090909] sm:rounded-[11px]">
                   <div className="absolute inset-x-0 top-0 flex h-8 items-center justify-between border-b border-white/10 px-3 text-[8px] tracking-[0.15em] text-white/45 sm:h-10 sm:px-5 sm:text-[10px]"><span>SK / WORKSPACE</span><span className="flex items-center gap-2"><i className="h-1.5 w-1.5 rounded-full bg-[#ed3434]" /> SYSTEM READY</span></div>
