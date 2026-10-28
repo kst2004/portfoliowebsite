@@ -74,14 +74,14 @@ export default function ExperienceHome() {
           <motion.div style={{ scaleY: lineScale }} className="absolute left-1/2 top-[23%] h-20 w-px origin-top bg-gradient-to-b from-[#ed3434] to-transparent sm:h-28" />
           <motion.div style={{ opacity: dataOpacity }} className="absolute left-1/2 top-[calc(23%+4.5rem)] h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-[#ed3434] shadow-[0_0_14px_rgba(237,52,52,.8)] sm:top-[calc(23%+7rem)]" />
 
-          <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center px-5 text-center">
+          <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl flex-col items-center justify-center px-5 text-center">
             <motion.div style={{ opacity: titleOpacity, y: titleY }} className="flex flex-col items-center">
               <p className="mb-7 text-[10px] uppercase tracking-[0.35em] text-white/40 sm:text-xs">Scroll to enter</p>
               <h1 className="font-heading text-[clamp(3.3rem,10vw,9rem)] font-medium leading-[0.84] tracking-[-0.08em]">SAITEJA<span className="text-white/35">.</span><br />KOLAN<span className="text-[#ed3434]">.</span></h1>
               <p className="mt-8 max-w-lg text-xs leading-6 text-white/50 sm:text-sm">Design, software, experiments, and everything in between.</p>
             </motion.div>
 
-            <motion.div style={{ opacity: monitorOpacity, scale: monitorScale }} className="experience-monitor absolute left-1/2 top-[48%] w-[min(88vw,850px)] -translate-x-1/2">
+            <motion.div style={{ opacity: monitorOpacity, scale: monitorScale }} className="experience-monitor w-full">
               <div className="relative rounded-[12px] border border-white/25 bg-[#111] p-[5px] shadow-[0_35px_120px_rgba(0,0,0,.8)] sm:rounded-[18px] sm:p-2">
                 <div className="relative aspect-[16/9] overflow-hidden rounded-[7px] border border-white/10 bg-[#090909] sm:rounded-[11px]">
                   <div className="absolute inset-x-0 top-0 flex h-8 items-center justify-between border-b border-white/10 px-3 text-[8px] tracking-[0.15em] text-white/45 sm:h-10 sm:px-5 sm:text-[10px]"><span>SK / WORKSPACE</span><span className="flex items-center gap-2"><i className="h-1.5 w-1.5 rounded-full bg-[#ed3434]" /> SYSTEM READY</span></div>
