@@ -53,8 +53,8 @@ button, input { font: inherit; }
 }
 
 @media (max-width: 640px) {
-  .experience-journey { height: 230vh; }
-  .experience-monitor { top: 47%; }
+  .experience-journey { height: 220vh; }
+  .experience-monitor { top: 39%; }
   .experience-data-wall { font-size: 9px; }
 }
 
