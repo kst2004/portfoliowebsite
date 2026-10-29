@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useMemo, useRef, useState } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { works } from '../data/content';
+import Logo from './Logo';
 
 const filters = ['All', 'Design', 'Development', '3D & Visuals'];
 const snippets = [
@@ -47,7 +48,7 @@ export default function ExperienceHome() {
   return (
     <main className="experience-shell min-h-screen overflow-clip bg-[#050505] text-white">
       <header className="experience-nav fixed inset-x-0 top-0 z-50 flex items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
-        <Link href="#top" aria-label="Saiteja Kolan home" className="text-sm font-medium tracking-tight">SK<span className="ml-1 text-[#ed3434]">.</span></Link>
+        <Link href="#top" aria-label="Saiteja Kolan home" className="inline-flex items-center"><Logo className="h-6 w-auto text-white sm:h-7" /></Link>
         <nav className="flex items-center gap-6 text-[10px] uppercase tracking-[0.2em] text-white/70 sm:gap-10 sm:text-xs">
           <Link className="transition-colors hover:text-white" href="#projects">Explore</Link>
           <Link className="transition-colors hover:text-white" href="#about">About</Link>
@@ -92,7 +93,7 @@ export default function ExperienceHome() {
                     </div>
                     <div className="relative my-3 flex items-center justify-center overflow-hidden border border-white/10 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,.1),transparent_65%)] sm:my-5">
                       <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(255,255,255,.2)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.2)_1px,transparent_1px)] [background-size:22px_22px] sm:[background-size:32px_32px]" />
-                      <div className="relative flex h-24 w-24 items-center justify-center rounded-full border border-white/30 sm:h-40 sm:w-40"><div className="absolute inset-3 rounded-full border border-white/20" /><div className="absolute inset-7 rotate-45 border border-[#ed3434]/70 sm:inset-10" /><span className="font-heading text-xl tracking-[-0.08em] sm:text-4xl">SK<span className="text-[#ed3434]">.</span></span></div>
+                      <div className="relative flex h-24 w-24 items-center justify-center rounded-full border border-white/30 sm:h-40 sm:w-40"><div className="absolute inset-3 rounded-full border border-white/20" /><div className="absolute inset-7 rotate-45 border border-[#ed3434]/70 sm:inset-10" /><Logo className="h-8 w-auto text-white sm:h-12" decorative /></div>
                     </div>
                   </div>
                 </div>
