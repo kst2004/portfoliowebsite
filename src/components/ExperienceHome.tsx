@@ -33,8 +33,12 @@ export default function ExperienceHome() {
   const titleOpacity = useTransform(scrollYProgress, [0, 0.07, 0.15], [1, 1, 0]);
   const titleY = useTransform(scrollYProgress, [0, 0.16], [0, -72]);
   const dataOpacity = useTransform(scrollYProgress, [0.13, 0.25, 0.43, 0.58], [0, 0.85, 0.85, 0]);
-  const monitorOpacity = useTransform(scrollYProgress, [0.16, 0.25, 0.34], [0, 1, 1]);
-  const monitorScale = useTransform(scrollYProgress, [0.16, 0.34], [0.88, 1]);
+  const monitorOpacity = useTransform(scrollYProgress, [0.12, 0.22, 0.46, 0.66, 0.76], [0, 1, 1, 0.75, 0]);
+  const monitorScale = useTransform(scrollYProgress, [0.12, 0.3, 0.52, 0.74], [0.62, 1, 1.18, 3.4]);
+  const monitorY = useTransform(scrollYProgress, [0.12, 0.3, 0.48, 0.72], [-260, 0, -35, -110]);
+  const monitorRotate = useTransform(scrollYProgress, [0.12, 0.3, 0.48], [-5, 0, 0]);
+  const diveScale = useTransform(scrollYProgress, [0.28, 0.45, 0.65], [0.96, 1.05, 1.35]);
+  const dataY = useTransform(scrollYProgress, [0.12, 0.7], [180, -180]);
   const roomOpacity = useTransform(scrollYProgress, [0.38, 0.58, 0.72], [0, 1, 1]);
   const roomY = useTransform(scrollYProgress, [0.38, 0.72], [34, 0]);
   const lineScale = useTransform(scrollYProgress, [0, 0.2], [0.1, 1]);
@@ -61,7 +65,7 @@ export default function ExperienceHome() {
           <div aria-hidden="true" className="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(rgba(255,255,255,.18)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.18)_1px,transparent_1px)] [background-size:80px_80px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
 
           <motion.div style={{ opacity: dataOpacity }} aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
-            <div className="experience-data-wall flex -rotate-[8deg] flex-col gap-3 whitespace-nowrap font-mono text-[10px] leading-none text-white/[0.12] sm:text-sm md:text-base">
+            <div style={{ y: dataY, scale: diveScale }} className="experience-data-wall flex -rotate-[8deg] flex-col gap-3 whitespace-nowrap font-mono text-[10px] leading-none text-white/[0.12] sm:text-sm md:text-base">
               {Array.from({ length: 13 }, (_, row) => (
                 <div key={row} className={row % 2 ? '-translate-x-[8vw]' : 'translate-x-[5vw]'}>
                   {Array.from({ length: 4 }, (_, col) => (
@@ -82,7 +86,7 @@ export default function ExperienceHome() {
               <p className="mt-8 max-w-lg text-xs leading-6 text-white/50 sm:text-sm">Design, software, experiments, and everything in between.</p>
             </motion.div>
 
-            <motion.div style={{ opacity: monitorOpacity, scale: monitorScale, x: "-50%" }} className="experience-monitor absolute left-1/2 top-[35%] w-[min(88vw,850px)]">
+            <motion.div style={{ opacity: monitorOpacity, scale: monitorScale, x: "-50%", y: monitorY, rotateZ: monitorRotate }} className="experience-monitor absolute left-1/2 top-[35%] w-[min(88vw,850px)]">
               <div className="relative rounded-[12px] border border-white/25 bg-[#111] p-[5px] shadow-[0_35px_120px_rgba(0,0,0,.8)] sm:rounded-[18px] sm:p-2">
                 <div className="relative aspect-[16/9] overflow-hidden rounded-[7px] border border-white/10 bg-[#090909] sm:rounded-[11px]">
                   <div className="absolute inset-x-0 top-0 flex h-8 items-center justify-between border-b border-white/10 px-3 text-[8px] tracking-[0.15em] text-white/45 sm:h-10 sm:px-5 sm:text-[10px]"><span>SK / WORKSPACE</span><span className="flex items-center gap-2"><i className="h-1.5 w-1.5 rounded-full bg-[#ed3434]" /> SYSTEM READY</span></div>
@@ -102,7 +106,7 @@ export default function ExperienceHome() {
             </motion.div>
 
             <motion.div style={{ opacity: roomOpacity, y: roomY }} className="absolute left-1/2 top-[calc(50%+min(30vw,250px))] w-full -translate-x-1/2 px-6 text-center sm:top-[calc(50%+290px)]">
-              <p className="text-[10px] uppercase tracking-[0.28em] text-white/45">One workspace. Many directions.</p><p className="mt-3 text-sm text-white/80 sm:text-lg">Explore what I make, build, and keep learning.</p>
+              <p className="text-[10px] uppercase tracking-[0.28em] text-white/45">Beyond the interface</p><p className="mt-3 text-sm text-white/80 sm:text-lg">Scroll in. Discover what gets built.</p>
             </motion.div>
           </div>
           <div className="absolute bottom-7 left-5 flex items-center gap-3 text-[9px] uppercase tracking-[0.22em] text-white/30 sm:bottom-9 sm:left-12"><span className="h-px w-7 bg-[#ed3434]" /><span>Scroll to explore</span></div>
