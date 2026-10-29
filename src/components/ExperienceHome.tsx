@@ -65,7 +65,7 @@ export default function ExperienceHome() {
           <div aria-hidden="true" className="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(rgba(255,255,255,.18)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.18)_1px,transparent_1px)] [background-size:80px_80px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
 
           <motion.div style={{ opacity: dataOpacity }} aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
-            <div style={{ y: dataY, scale: diveScale }} className="experience-data-wall flex -rotate-[8deg] flex-col gap-3 whitespace-nowrap font-mono text-[10px] leading-none text-white/[0.12] sm:text-sm md:text-base">
+            <motion.div style={{ y: dataY, scale: diveScale }} className="experience-data-wall flex -rotate-[8deg] flex-col gap-3 whitespace-nowrap font-mono text-[10px] leading-none text-white/[0.12] sm:text-sm md:text-base">
               {Array.from({ length: 13 }, (_, row) => (
                 <div key={row} className={row % 2 ? '-translate-x-[8vw]' : 'translate-x-[5vw]'}>
                   {Array.from({ length: 4 }, (_, col) => (
@@ -73,7 +73,7 @@ export default function ExperienceHome() {
                   ))}
                 </div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
           <motion.div style={{ scaleY: lineScale }} className="absolute left-1/2 top-[23%] h-20 w-px origin-top bg-gradient-to-b from-[#ed3434] to-transparent sm:h-28" />
