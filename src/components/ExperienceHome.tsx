@@ -29,11 +29,11 @@ export default function ExperienceHome() {
   const [activeFilter, setActiveFilter] = useState('All');
   const { scrollYProgress } = useScroll({ target: journeyRef, offset: ['start start', 'end end'] });
 
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.1, 0.22], [1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0, 0.22], [0, -56]);
-  const dataOpacity = useTransform(scrollYProgress, [0.1, 0.26, 0.43, 0.57], [0, 1, 1, 0]);
-  const monitorOpacity = useTransform(scrollYProgress, [0.12, 0.28, 0.42], [0, 0.7, 1]);
-  const monitorScale = useTransform(scrollYProgress, [0.12, 0.42], [0.84, 1]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.07, 0.15], [1, 1, 0]);
+  const titleY = useTransform(scrollYProgress, [0, 0.16], [0, -72]);
+  const dataOpacity = useTransform(scrollYProgress, [0.13, 0.25, 0.43, 0.58], [0, 0.85, 0.85, 0]);
+  const monitorOpacity = useTransform(scrollYProgress, [0.16, 0.25, 0.34], [0, 1, 1]);
+  const monitorScale = useTransform(scrollYProgress, [0.16, 0.34], [0.88, 1]);
   const roomOpacity = useTransform(scrollYProgress, [0.38, 0.58, 0.72], [0, 1, 1]);
   const roomY = useTransform(scrollYProgress, [0.38, 0.72], [34, 0]);
   const lineScale = useTransform(scrollYProgress, [0, 0.2], [0.1, 1]);
@@ -54,7 +54,7 @@ export default function ExperienceHome() {
         </nav>
       </header>
 
-      <section id="top" ref={journeyRef} className="experience-journey relative h-[280vh]">
+      <section id="top" ref={journeyRef} className="experience-journey relative h-[280vh] md:h-[280vh]">
         <div className="sticky top-0 flex h-[100svh] items-center justify-center overflow-hidden">
           <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_55%,rgba(255,255,255,0.035),transparent_52%)]" />
           <div aria-hidden="true" className="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(rgba(255,255,255,.18)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.18)_1px,transparent_1px)] [background-size:80px_80px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
